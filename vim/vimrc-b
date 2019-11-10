@@ -6,7 +6,7 @@
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
 let g:vim_bootstrap_langs = "go,html,javascript,php,python"
-let g:vim_bootstrap_editor = "vim"				" nvim or vim
+let g:vim_bootstrap_editor = "vim"
 
 if !filereadable(vimplug_exists)
   if !executable("curl")
@@ -27,22 +27,38 @@ call plug#begin(expand('~/.vim/plugged'))
 "*****************************************************************************
 "" Plug install packages
 "*****************************************************************************
-Plug 'scrooloose/nerdtree'
+Plug 'Raimondi/delimitMate'
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'auxiliary/vim-layout'
+Plug 'avelino/vim-bootstrap-updater'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'hashivim/vim-terraform'
+Plug 'itspriddle/vim-shellcheck'
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'juliosueiras/vim-terraform-completion'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/emmet-vim'
+Plug 'myusuf3/numbers.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'sheerun/vim-polyglot'
+Plug 'smeggingsmegger/vim-colorschemes'
+Plug 'stephpy/vim-yaml'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-gitgutter'
-Plug 'vim-scripts/grep.vim'
 Plug 'vim-scripts/CSApprox'
-Plug 'Raimondi/delimitMate'
-Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/grep.vim'
+Plug 'vim-syntastic/syntastic'
 Plug 'w0rp/ale'
-Plug 'Yggdroot/indentLine'
-Plug 'avelino/vim-bootstrap-updater'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -127,9 +143,9 @@ set ttyfast
 set backspace=indent,eol,start
 
 "" Tabs. May be overridden by autocmd rules
-set tabstop=4
+set tabstop=2
 set softtabstop=0
-set shiftwidth=4
+set shiftwidth=2
 set expandtab
 
 "" Map leader to ,
@@ -166,7 +182,7 @@ set ruler
 set number
 
 let no_buffers_menu=1
-silent! colorscheme molokai
+silent! colorscheme codedark
 
 set mousemodel=popup
 set t_Co=256
@@ -231,12 +247,51 @@ if exists("*fugitive#statusline")
 endif
 
 " vim-airline
-let g:airline_theme = 'powerlineish'
+let g:airline_theme = 'codedark'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
+
+" Syntastic Config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" (Optional)Remove Info(Preview) window
+set completeopt-=preview
+
+" (Optional)Hide Info(Preview) window after completions
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" (Optional) Enable terraform plan to be include in filter
+let g:syntastic_terraform_tffilter_plan = 1
+
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 1
+
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 0
+
+" Allow vim-terraform to align settings automatically with Tabularize.
+let g:terraform_align=1
+
+"Allow vim-terraform to automatically fold (hide until unfolded) sections of terraform code.
+"Defaults to 0 which is off.
+let g:terraform_fold_sections=1
+
+" Allow vim-terraform to automatically format *.tf and *.tfvars files
+" with terraform fmt. You can also do this manually with the :TerraformFmt command.
+let g:terraform_fmt_on_save=1
+
+let g:airline#extensions#tabline#enabled = 1
 
 "*****************************************************************************
 "" Abbreviations
