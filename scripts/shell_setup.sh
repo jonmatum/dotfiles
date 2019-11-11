@@ -3,6 +3,12 @@
 
 main()
 {
+  git clone https://github.com/powerline/fonts.git --depth=1
+  cd fonts || exit ${?}
+  ./install.sh
+  cd .. || exit ${?}
+  rm -rf fonts
+
   git clone https://github.com/robbyrussell/oh-my-zsh.git "${HOME}/.oh-my-zsh"
   git clone https://github.com/jonmatum/dotfiles.git "${HOME}/.dotfiles"
   
