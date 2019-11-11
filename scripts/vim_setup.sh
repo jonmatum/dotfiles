@@ -3,8 +3,15 @@
 
 main()
 {
-  vimrc="https://raw.githubusercontent.com/jonmatum/dotfiles/master/vim/vimrc"
-  curl -fsSL "${vimrc}" > "${HOME}/.vimrc"
+  cd "${HOME}" || exit ${?}
+
+  if [ -f '.dotfiles/vim/vimrc' ]; then
+    ln -s '.dotfiles/vim/vimrc' '.vimrc'
+  else
+    vimrc='https://raw.githubusercontent.com/jonmatum/dotfiles/master/vim/vimrc'
+    curl -fsSL "${vimrc}" > '.vimrc'
+  fi
+
   vi -c 'PlugInstall' +qall
 }
 
