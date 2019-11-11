@@ -11,7 +11,7 @@ main()
   
   cd "${HOME}" || exit ${?}
   ln -s .dotfiles/zsh/zshrc .zshrc
-  ln -s .dotfiles/tmux/tmux.conf .
+  ln -s .dotfiles/tmux/tmux.conf .tmux.conf
 
   chsh -s "$(command -v zsh)"
 }
