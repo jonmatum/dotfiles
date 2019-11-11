@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 # Copyright (c) 2019 Jonatan Mata
 
+set -e
+set -o pipefail
+
 main()
 {
   cd "${HOME}" || exit ${?}
