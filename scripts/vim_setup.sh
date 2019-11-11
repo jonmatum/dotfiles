@@ -5,8 +5,12 @@ main()
 {
   cd "${HOME}" || exit ${?}
 
+  if [ -f .vimrc ]; then
+    rm -rf .vimrc
+  fi
+
   if [ -f '.dotfiles/vim/vimrc' ]; then
-    rm -rf '.vimrc' && ln -s '.dotfiles/vim/vimrc' '.vimrc'
+    ln -s '.dotfiles/vim/vimrc' '.vimrc'
   else
     vimrc='https://raw.githubusercontent.com/jonmatum/dotfiles/master/vim/vimrc'
     curl -fsSL "${vimrc}" > '.vimrc'
