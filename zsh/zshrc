@@ -91,7 +91,7 @@ alias g-s='git status'
 
 alias tt='while true;do clear;t;sleep 2s;done'
 
-alias              ls='ls -GFh'
+alias ls='ls -GFh'
 
 export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode – red
 export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode – bold, magenta
