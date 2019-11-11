@@ -4,8 +4,15 @@
 main()
 {
   git clone https://github.com/robbyrussell/oh-my-zsh.git "${HOME}/.oh-my-zsh"
+  git clone https://github.com/jonmatum/dotfiles.git "${HOME}/.dotfiles"
+  
+  cd "${HOME}/.oh-my-zsh/themes" || exit ${?}
+  ln -s "${HOME}/.dotfiles/zsh/cobalt2.zsh-theme" .
+  
+  cd "${HOME}" || exit ${?}
+  ln -s .dotfiles/zsh/zshrc .zshrc
 
-  chsh -s $(which zsh)
+  chsh -s "$(command -v zsh)"
 }
 
 main
