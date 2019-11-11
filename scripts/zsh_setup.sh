@@ -3,7 +3,9 @@
 
 main()
 {
-  sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  git clone https://github.com/robbyrussell/oh-my-zsh.git "${HOME}/.oh-my-zsh"
+
+  chsh -s $(which zsh)
 }
 
 main

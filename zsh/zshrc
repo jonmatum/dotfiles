@@ -1,55 +1,13 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH:/opt/local/bin:/opt/local/sbin:/Users/jomata/OFFLINE-Documents/AzureDevOps/LUMOS/Scripts
-
-# # MacPorts Installer addition on 2016-03-31_at_15:38:26: adding an appropriate PATH variable for use with MacPorts.
-# export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# # Finished adapting your PATH environment variable for use with MacPorts.
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH:/opt/local/bin:/opt/local/sbin
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/jomata/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="cobalt2"
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -58,36 +16,6 @@ ZSH_THEME="cobalt2"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
 
 function t()
 {
@@ -157,37 +85,6 @@ function g-f()
   g-p .
 }
 
-function slog()
-{
-  grc -c /usr/local/share/grc/conf.slog tail -f /Users/jomata/Sapience/.log/sapiencecollector.log
-  #multitail -Z red,black,inverse -T -x "%m %u@%h %f (%t) [%l]" -b 8 -m 0 -n 100 \
-  #-f -cS autoclone "/Users/jomata/Sapience/.log/sapiencecollector.log"
-}
-
-function essh()
-{
-  ssh -i ~/.ssh/etkupro etkupro@${1} ${2}
-}
-
-function aws-ssh()
-{
-  ssh -i ~/.ssh/tf-user.pem ec2-user@${1} ${2}
-}
-
-function ac-get_transaction()
-{
-  if [[ ${1} -gt 0 ]]; then
-   api-etkupro autoclone transaction/get "tid=${1}&go=true"|less
-  fi
-}
-
-function ac-ovm_cli()
-{
-  sshpass -f ~/.ovmmpwd ssh -c aes128-cbc -oHostKeyAlgorithms=+ssh-dss etkupro@${1} -p 10000 "${2}"
-}
-
-alias vi='/usr/bin/vim'
-alias vim='/usr/bin/vim'
 alias g-a='git add *'
 alias g-l="git lg"
 alias g-s='git status'
@@ -195,82 +92,6 @@ alias g-s='git status'
 alias tt='while true;do clear;t;sleep 2s;done'
 
 alias              ls='ls -GFh'
-alias             tmp='cd /Users/jomata/OFFLINE-Documents/tmp'
-alias          gitlab='cd /Users/jomata/OFFLINE-Documents/GitLab'
-alias             cms='cd /Users/jomata/OFFLINE-Documents/GitLab/CMS'
-alias           gxpro='cd /Users/jomata/OFFLINE-Documents/GitLab/CMS/Hosting/Customers/GXPRO'
-alias          devops='cd /Users/jomata/OFFLINE-Documents/GitLab/CMS/Hosting/DevOps'
-alias          puppet='cd /Users/jomata/OFFLINE-Documents/GitLab/CMS/Hosting/DevOps/puppet'
-alias     puppet-code='cd /Users/jomata/OFFLINE-Documents/GitLab/CMS/Hosting/DevOps/puppet/code'
-alias             cba='cd /Users/jomata/OFFLINE-Documents/GitLab/CMS/Hosting/Engineering/builds'
-alias    etkupro-code='cd /Users/jomata/OFFLINE-Documents/GitLab/CMS/Hosting/DevOps/etkupro'
-alias       autoclone='cd /Users/jomata/OFFLINE-Documents/GitLab/CMS/AutoClone'
-alias         ac-code='cd /Users/jomata/OFFLINE-Documents/GitLab/CMS/AutoClone/HS/CodeBase'
-alias      lumos-code='cd /Users/jomata/OFFLINE-Documents/AzureDevOps/LUMOS'
-alias   lumos-scripts='cd /Users/jomata/OFFLINE-Documents/AzureDevOps/LUMOS/Scripts'
-alias lumos-templates='cd /Users/jomata/OFFLINE-Documents/AzureDevOps/LUMOS/Templates'
-alias       lumos-lfn='cd /Users/jomata/OFFLINE-Documents/AzureDevOps/LUMOS/LFN'
-alias       lumos-brn='cd /Users/jomata/OFFLINE-Documents/AzureDevOps/LUMOS/BRN'
-
-alias opc-lab='ssh opc@129.146.72.54 -i ~/.ssh/opcw'
-alias opc-appvm1='ssh -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -i ~/.ssh/opcw opc@129.157.129.50'
-
-#ACHS - Nodes
-
-alias achs-chi='ssh cms-chi-achs01.itciss.com'
-alias achs-365='ssh cms-365-achs01.itciss.com'
-
-#alias orane='open -a Preview ~/.OJ.png'
-
-alias etkupro-old='ssh jomata@iss-chi-etkupro.itciss.com'
-alias etkupro-dev='ssh jomata@cms-365-etkupro.itciss.com'
-alias etkupro-new='ssh jomata@cms-chi-etkupro.itciss.com'
-
-# Puppet Development
-alias puppet-dm01='ssh jomata@cms-365-pupdmgr01.itciss.com'
-alias puppet-dm02='ssh jomata@cms-365-pupdmgr02.itciss.com'
-alias puppet-dca01='ssh jomata@cms-365-pupdca01.itciss.com'
-alias puppet-ds01='ssh jomata@cms-365-pupdm01.itciss.com'
-alias puppet-ds02='ssh jomata@cms-365-pupdm02.itciss.com'
-
-# Puppet Regression
-alias puppet-rs01='essh lab-365-puprm01.lab.itciss.com'
-alias puppet-rs02='essh lab-365-puprm02.lab.itciss.com'
-alias puppet-rca01='essh lab-365-puprca01.lab.itciss.com'
-
-# Puppet Test Nodes
-alias puppet-dtn-oel5='ssh lab-365-pupdol5n01.lab.itciss.com'
-alias puppet-dtn-oel6='ssh lab-365-pupdol6n01.lab.itciss.com'
-alias puppet-dtn-oel7='ssh lab-365-pupdol7n01.lab.itciss.com'
-
-alias puppet-rtn-oel5='essh cms-chi-puptest02.itciss.com'
-alias puppet-rtn-oel6='ssh jomata@cms-365-puptest02.itciss.com'
-alias puppet-rtn-oel7='ssh jomata@cms-365-puptest05.itciss.com'
-
-alias puppet-ptn-oel5='essh cms-chi-puptest03.itciss.com'
-alias puppet-ptn-oel6='ssh jomata@cms-365-puptest03.itciss.com'
-alias puppet-ptn-oel7='ssh jomata@cms-365-puptest06.itciss.com'
-
-# Puppet Prod
-alias puppet-chi-pm01='ssh jomata@cms-chi-pupmgr01.itciss.com'
-alias puppet-chi-pm02='ssh jomata@cms-chi-pupmgr02.itciss.com'
-
-alias puppetc365-pm01='ssh jomata@cms-365-pupmgr01.itciss.com'
-alias puppet-365-pm02='ssh jomata@cms-365-pupmgr02.itciss.com'
-
-alias puppet-chi-pca01='ssh jomata@cms-chi-pupca01.itciss.com'
-alias puppet-chi-pca02='ssh jomata@cms-chi-pupca02.itciss.com'
-
-alias puppet-365-pca01='ssh jomata@cms-365-pupca01.itciss.com'
-alias puppet-365-pca02='ssh jomata@cms-365-pupca02.itciss.com'
-
-alias puppet-chi-ps01='ssh jomata@cms-chi-pupm01.itciss.com'
-alias puppet-chi-ps02='ssh jomata@cms-chi-pupm02.itciss.com'
-
-alias puppet-365-ps01='ssh jomata@cms-365-pupm01.itciss.com'
-alias puppet-365-ps02='ssh jomata@cms-365-pupm02.itciss.com'
-
-alias zero='ssh -i ~/.ssh/zero zero@alpha.local'
 
 export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode – red
 export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode – bold, magenta
