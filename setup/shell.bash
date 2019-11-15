@@ -82,16 +82,7 @@ function main()
     done
   fi
 
-  echo_msg "link shell integrations"
-  f=iterm2_shell_integration
-  for i in bash zsh;do
-    x="${p}/iterm/${f}.${i}"
-    if [[ -f "${x}" ]];then
-      ln -fs "${x}" ".${f}.${i}"
-    fi
-  done
-
-  if (echo "${SHELL}"|grep -q 'zsh'); then
+  if (echo "${SHELL}"|grep -vq 'zsh'); then
     s="$(command -v zsh)"
     if [[ -f "${s}" ]];then
       echo_msg "Change user shell to zsh"
