@@ -1,0 +1,10 @@
+# My Own Helpers
+export DOTFILES_HELPERS="${HOME}/.dotfiles_helpers"
+
+[[ -d "${DOTFILES_HELPERS}/scripts" ]] || mkdir -p "${DOTFILES_HELPERS}/scripts"
+
+for i in $(find "${DOTFILES_HELPERS}" -maxdepth 1 -type f);do
+  [[ -f "${i}" ]] && source "${i}"
+done
+
+### EOF EOS

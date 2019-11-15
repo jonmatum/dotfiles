@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH:/opt/local/bin:/opt/local/sbin
+export PATH=$HOME/bin:/usr/local/bin:$PATH:/opt/local/bin:/opt/local/sbin
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -13,85 +13,9 @@ ZSH_THEME="cobalt2"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+#plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-
-function t()
-{
-  tree -I '.git|node_modules|bower_components|.DS_Store' --dirsfirst --filelimit 15 -L ${1:-3} -aC $2
-}
-
-function g-c()
-{
-  if [[ -n "${1}" ]]; then
-    git commit -a -m "${1}"
-  else
-    local tl=`mktemp`
-    local cm=`mktemp`
-
-    git status > "${tl:-}"
-
-    local cb=`git branch | grep \* | cut -d ' ' -f2`
-
-    echo "On branch ${cb:-} [" > "${cm:-}"
-
-    for i in new modified deleted;
-    do
-      local f=`grep ${i:-} "${tl:-}"|cut -d : -f 2 |xargs`
-      if [[ -n "${f:-}" ]]; then
-        local c=`echo ${f:-}|wc -w|xargs`
-        f=`echo ${f:-}|tr ' ' ,`
-        if [[ ${c:-} -gt 1 ]]; then
-          echo "${c:-} ${i:-} files:${f:-}; " >> "${cm:-}"
-        else
-          echo "${c:-} ${i:-} file:${f:-}; " >> "${cm:-}"
-        fi
-      fi
-    done
-
-    echo "]." >> "${cm:-}"
-
-    git commit -a -m "$(echo `cat ${cm:-}`)"
-
-    rm "${tl:-}" "${cm:-}"
-  fi
-}
-
-function g-p()
-{
-  if [[ -n "${1}" ]]; then
-
-    if [[ "x${1}" == "x." ]]; then
-      local b=`git branch|cut -d " " -f 2|xargs`
-      git push -u origin ${b}
-    else
-      git push -u origin "${1}"
-    fi
-  else
-    local b=`git branch|cut -d " " -f 2|xargs`
-    if [[ "x${b}" == "xdevelopment" ]]; then
-      git push -u origin development
-    else
-      echo -e "\nERROR::Automatic 'git push' is just allowed if the target branch is development.\n"
-    fi
-  fi
-}
-
-function g-f()
-{
-  g-a .
-  g-c
-  g-p .
-}
-
-alias g-a='git add *'
-alias g-l="git lg"
-alias g-s='git status'
-
-alias tt='while true;do clear;t;sleep 2s;done'
-
-alias ls='ls -GFh'
 
 export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode – red
 export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode – bold, magenta
@@ -104,8 +28,17 @@ export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode – cyan
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
-export PATH="$HOME/.bin:$PATH"
+# Source this
+for i in .fzf.zsh .iterm2_shell_integration.zsh .dotfiles/helpers/init;do
+  [[ -f "${HOME}/${i}" ]] && source "${HOME}/${i}"
+done
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# My own stuff
+export DOTFILES_STATIC_HELPERS="${HONE}/.dotfiles_static_helpers"
+[[ -d "${DOTFILES_STATIC_HELPERS}" ]] || mkdir -p "${DOTFILES_STATIC_HELPERS}"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+for i in $(ls -1 "${H}");do
+  source 
+done
+
+### EOF EOS
