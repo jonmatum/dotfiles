@@ -1,2 +1,3 @@
 alias tt='while true;do clear;t;sleep 2s;done'
 alias ls='ls -GFh'
+alias vim='/usr/bin/vi'
