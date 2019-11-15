@@ -1,0 +1,66 @@
+function g-c()
+{
+  if [[ -n "${1}" ]]; then
+    git commit -a -m "${1}"
+  else
+    local tl=`mktemp`
+    local cm=`mktemp`
+
+    git status > "${tl:-}"
+
+    local cb=`git branch | grep \* | cut -d ' ' -f2`
+
+    echo "On branch ${cb:-} [" > "${cm:-}"
+
+    for i in new modified deleted;
+    do
+      local f=`grep ${i:-} "${tl:-}"|cut -d : -f 2 |xargs`
+      if [[ -n "${f:-}" ]]; then
+        local c=`echo ${f:-}|wc -w|xargs`
+        f=`echo ${f:-}|tr ' ' ,`
+        if [[ ${c:-} -gt 1 ]]; then
+          echo "${c:-} ${i:-} files:${f:-}; " >> "${cm:-}"
+        else
+          echo "${c:-} ${i:-} file:${f:-}; " >> "${cm:-}"
+        fi
+      fi
+    done
+
+    echo "]." >> "${cm:-}"
+
+    git commit -a -m "$(echo `cat ${cm:-}`)"
+
+    rm "${tl:-}" "${cm:-}"
+  fi
+}
+
+function g-p()
+{
+  if [[ -n "${1}" ]]; then
+
+    if [[ "x${1}" == "x." ]]; then
+      local b=`git branch|cut -d " " -f 2|xargs`
+      git push -u origin ${b}
+    else
+      git push -u origin "${1}"
+    fi
+  else
+    local b=`git branch|cut -d " " -f 2|xargs`
+    if [[ "x${b}" == "xdevelopment" ]]; then
+      git push -u origin development
+    else
+      echo -e "\nERROR::Automatic 'git push' is just allowed if the target branch is development.\n"
+    fi
+  fi
+}
+
+function g-f()
+{
+  g-a .
+  g-c
+  g-p .
+}
+
+alias g-a='git add *'
+alias g-l="git lg"
+alias g-s='git status'
