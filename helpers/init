@@ -1,5 +1,5 @@
 # My Own Helpers
-export DOTFILES_HELPERS="${HOME}/.dotfiles_helpers"
+DOTFILES_HELPERS="${HOME}/.dotfiles_helpers"
 
 [[ -d "${DOTFILES_HELPERS}/scripts" ]] || mkdir -p "${DOTFILES_HELPERS}/scripts"
 

@@ -91,11 +91,15 @@ function main()
     fi
   done
 
-  s="$(command -v zsh)"
-  if [[ -f "${s}" ]];then
-    echo_msg "Change user shell to zsh"
-    chsh -s "${s}"
+  if (echo "${SHELL}"|grep -q 'zsh'); then
+    s="$(command -v zsh)"
+    if [[ -f "${s}" ]];then
+      echo_msg "Change user shell to zsh"
+      chsh -s "${s}"
+    fi
   fi
+
+  source "${HOME}/.zshrc"
 }
 
 main
