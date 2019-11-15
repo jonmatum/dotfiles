@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Copyright (c) 2019 Jonatan Mata
+
+ __ifs=$IFS
+
+# Set magic vars.
+ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+__file="${__dir:-}/$(basename "${BASH_SOURCE[0]}")"
+
+# Source the stuff
+[[ -f "${__dir:-}/_STUFF" ]] && source "${__dir:-}/_STUFF"
+
+# Main
+function main()
+{
+    echo_title 
+          line
+  echo_magenta "$(fortune)"
+          line
+ echo_question "Hello, who am I talking to?"
+  read -r varname
+   echo_answer "It's nice to meet you ${varname}"
+      echo_end
+}
+
+main "${@:-}"
+
+exit ${?:-}
