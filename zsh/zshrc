@@ -33,12 +33,4 @@ for i in .fzf.zsh .iterm2_shell_integration.zsh .dotfiles/helpers/init;do
   [[ -f "${HOME}/${i}" ]] && source "${HOME}/${i}"
 done
 
-# My own stuff
-export DOTFILES_STATIC_HELPERS="${HONE}/.dotfiles_static_helpers"
-[[ -d "${DOTFILES_STATIC_HELPERS}" ]] || mkdir -p "${DOTFILES_STATIC_HELPERS}"
-
-for i in $(ls -1 "${H}");do
-  source 
-done
-
 ### EOF EOS
