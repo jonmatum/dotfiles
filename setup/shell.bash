@@ -23,7 +23,7 @@ function main()
 {
   cd ${HOME} || exit ${?}
 
-  local b p s
+  local b p s c f
 
   p='.dotfiles'
 
@@ -66,6 +66,21 @@ function main()
       ln -s "${p}/${i}/${i}.conf" ".${i}.conf"
     elif [[ -f "${p}/${i}/${i}" ]]; then
       ln -s "${p}/${i}/${i}" ".${i}"
+    else
+      c=$(echo ${i}|tr -d rc)
+      if [[ -f "${p}/${c}/${i}" ]];then
+        ln -s "${p}/${c}/${i}" ".${i}"
+      fi
+    fi
+  done
+
+  f=iterm2_shell_integration
+  echo_msg "link ${f}"
+
+  for i in bash zsh;do
+    x="${p}/iterm/${f}.${i}"
+    if [[ -f "${x}" ]];then
+      ln -fs "${x}" ".${f}.${i}" 
     fi
   done
 
