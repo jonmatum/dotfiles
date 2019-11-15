@@ -23,7 +23,7 @@ function main()
 {
   cd "${HOME}" || exit ${?}
 
-  local b p s c f h
+  local b p s c h
 
   p='.dotfiles'
 
@@ -89,8 +89,6 @@ function main()
       chsh -s "${s}"
     fi
   fi
-
-  source "${HOME}/.zshrc"
 }
 
 main
