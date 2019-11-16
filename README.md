@@ -1,2 +1,2 @@
 # dotfiles
-My Bombastic Dotfiles.
+My dotfiles.
