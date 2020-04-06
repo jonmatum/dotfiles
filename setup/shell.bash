@@ -32,7 +32,7 @@ function main()
     mkdir -p "${b}"
 
     echo_msg "Backup of old .dotfiles at: ${b}."
-    for i in .dotfiles .oh-my-zsh .vimrc .zshrc .tmux.conf;do
+    for i in .dotfiles .oh-my-zsh .vimrc .zshrc .zshenv .tmux.conf;do
       if [[ -h "${i}" ]];then
         unlink "${i}"
       elif [[ -f "${i}" ]] || [[ -d "${i}" ]]; then

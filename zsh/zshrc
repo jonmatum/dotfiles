@@ -33,4 +33,7 @@ for i in .fzf.zsh .dotfiles/helpers/init;do
   [[ -f "${HOME}/${i}" ]] && source "${HOME}/${i}"
 done
 
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 ### EOF EOS
