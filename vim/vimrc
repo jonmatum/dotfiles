@@ -30,7 +30,6 @@ call plug#begin(expand('~/.vim/plugged'))
 Plug 'Raimondi/delimitMate'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
-Plug 'auxiliary/vim-layout'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'hashivim/vim-terraform'
