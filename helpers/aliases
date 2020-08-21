@@ -4,3 +4,4 @@ alias              vim='/usr/bin/vi'
 alias         dotfiles="cd ${HOME}/.dotfiles"
 alias dotfiles-helpers="cd ${HOME}/.dotfiles_helpers"
 alias dotfiles-scripts="cd ${HOME}/.dotfiles_helpers/scripts"
+alias dotfiles-aliases="vi ${HOME}/.dotfiles_helpers/aliases"

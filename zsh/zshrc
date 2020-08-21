@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH:/opt/local/bin:/opt/local/sbin:$HOME/.dotfiles_helpers/scripts
+export PATH=$HOME/bin:/usr/local/bin:$PATH:/opt/local/bin:/opt/local/sbin:$HOME/.dotfiles_helpers/scripts:/Users/jomata/Library/Python/2.7/bin/
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
