@@ -2,7 +2,7 @@
 
 This is a new version of my dotfiles for 2022.
 
-![alt text](https://github.com/jonmatum/dotfiles/blob/4b09666537d8bf5f069991d67e07451349065455/screenshot.png?raw=true)
+![alt text](https://github.com/jonmatum/dotfiles/blob/0931840be160caf763ffc6cb3a406d4f67d81521/screenshot.jpg?raw=true)
 
 --
 Happy Hacking and Pura Vida!
