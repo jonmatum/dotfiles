@@ -1,7 +1,6 @@
-# dotfiles 2022
+# Just Another Dotfiles Repository
 
-Upgrade of my dotfiles for 2022.
-
+This is a new version of my dotfiles for 2022.
 
 --
 Happy Hacking and Pura Vida!
