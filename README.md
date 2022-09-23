@@ -41,3 +41,9 @@ You can customize your active Visual Studio Code color theme with the workbench.
     }
 }
 ```
+
+# iTerm2: Send text at start
+
+```
+tmux new-session -d -s HappyHacking -n myWindow;tmux attach -t HappyHacking:myWindow
+```
