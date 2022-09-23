@@ -42,6 +42,34 @@ You can customize your active Visual Studio Code color theme with the workbench.
 }
 ```
 
+## GitHub Dark Dimmed for vscode terminal
+
+```json
+    "workbench.colorCustomizations": {
+
+        "terminal.background":"#1c2128",
+        "terminal.foreground":"#adbac7",
+        "terminalCursor.background":"#f2cb1e",
+        "terminalCursor.foreground":"#f2cb1e",
+        "terminal.ansiBlack":"#000000",
+        "terminal.ansiBlue":"#3572a5",
+        "terminal.ansiBrightBlack":"#383838",
+        "terminal.ansiBrightBlue":"#58a6ff",
+        "terminal.ansiBrightCyan":"#99d1ee",
+        "terminal.ansiBrightGreen":"#39d252",
+        "terminal.ansiBrightMagenta":"#8957e5",
+        "terminal.ansiBrightRed":"#f9291b",
+        "terminal.ansiBrightWhite":"#ffffff",
+        "terminal.ansiBrightYellow":"#f1e05a",
+        "terminal.ansiCyan":"#85d7da",
+        "terminal.ansiGreen":"#47824d",
+        "terminal.ansiMagenta":"#563d7c",
+        "terminal.ansiRed":"#9d3d3e",
+        "terminal.ansiWhite":"#f0f6fc",
+        "terminal.ansiYellow":"#f1e05a"
+    }
+```
+
 # iTerm2: Send text at start
 
 ```
