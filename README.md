@@ -46,4 +46,6 @@ You can customize your active Visual Studio Code color theme with the workbench.
 
 ```
 tmux new-session -d -s HappyHacking -n myWindow;tmux attach -t HappyHacking:myWindow
+
+https://github.com/github/gitignore
 ```
