@@ -1,0 +1,87 @@
+## Constants
+SCRIPT_TITLE='MatUm Helpers by Jon Matum'
+
+## Functions
+
+function stg_lcase()
+{
+  echo "${*:-$(</dev/stdin)}"|awk '{print tolower($0)}'
+}
+
+function stg_ucase()
+{
+  echo "${*:-$(</dev/stdin)}"|awk '{print toupper($0)}'
+}
+
+function _liner()
+{
+  local w=$(tput cols)
+  local l=""
+  while [ ${w:-} -gt 0 ];do
+    l="${l:-}${1:-}"
+    w=$[${w:-}-1]
+  done
+  echo ${l:-}
+}
+
+function line()
+{
+  _liner '-'
+}
+
+function echo_title()
+{
+  echo -e "\e[34m--\e[0m \e[1m${1:-$SCRIPT_TITLE}\e[0m"
+}
+
+function echo_end()
+{
+  echo -e "\e[34m--\e[0m \e[1m${1:-End}\e[0m"
+}
+
+function echo_question()
+{
+  echo -e "\e[33m> ${1:-}?\e[0m"
+}
+
+function echo_answer()
+{
+  echo_blue "${@:-}"
+}
+
+function echo_error()
+{
+  echo -e "\e[1m\e[31mERROR:\e[0m ${1:-None}"
+}
+
+function echo_red()
+{
+  echo -e "\e[31m${1:-}\e[0m"
+}
+
+function echo_green()
+{
+  echo -e "\e[32m${1:-}\e[0m"
+}
+
+function echo_yellow()
+{
+  echo -e "\e[33m${1:-}\e[0m"
+}
+
+function echo_blue()
+{
+  echo -e "\e[34m${1:-}\e[0m"
+}
+
+function echo_magenta()
+{
+  echo -e "\e[35m${1:-}\e[0m"
+}
+
+function echo_cyan()
+{
+  echo -e "\e[36m${1:-}\e[0m"
+}
+
+## EOF EOS
