@@ -77,5 +77,3 @@ tmux new-session -d -s HappyHacking -n myWindow;tmux attach -t HappyHacking:myWi
 
 https://github.com/github/gitignore
 ```
-
-.
