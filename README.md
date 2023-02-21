@@ -1,4 +1,4 @@
-# Just Another Dotfiles Repository (WIP...)
+# Just Another Dotfiles Repository (WIP....)
 
 This is a new version of my dotfiles for 2022.
 
