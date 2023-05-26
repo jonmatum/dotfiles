@@ -11,13 +11,11 @@ To use this Tmux configuration, follow the steps below:
    sudo apt-get install tmux
    ```
 
-2. Download the raw `tmux.conf` file from this repository by clicking [here](https://raw.githubusercontent.com/...). Save the file to your local machine.
-
-Make sure to replace `your-username` with your actual GitHub username in the URL.
+2. Download the raw `tmux.conf` file from this repository by clicking [here](https://raw.githubusercontent.com/jonmatum/dotfiles/main/tmux/tmux.conf). Save the file to your local machine.
 
 3. Copy the configuration file (`tmux.conf`) to your home directory:
    ```
-   cp tmux-config/tmux.conf ~/.tmux.conf
+   cp tmux.conf ~/.tmux.conf
    ```
 
 4. Install the Tmux Plugin Manager (TPM):
