@@ -1,13 +1,4 @@
-#
-# Cobalt2 Theme - https://github.com/wesbos/Cobalt2-iterm
-#
-# # README
-#
-# In order for this theme to render correctly, you will need a
-# [Powerline-patched font](https://gist.github.com/1595572).
-##
-### Segment drawing
-# A few utility functions to make it easy and re-usable to draw segmented prompts
+# Based on  Cobalt2 Theme - https://github.com/wesbos/Cobalt2-iterm
 
 CURRENT_BG='NONE'
 SEGMENT_SEPARATOR=''
@@ -23,8 +14,6 @@ prompt_segment() {
     echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
   else
     echo -n "%{$bg%}%{$fg%} "
-    # echo $(pwd | sed -e "s,^$HOME,~," | sed "s@\(.\)[^/]*/@\1/@g")
-    # echo $(pwd | sed -e "s,^$HOME,~,")
   fi
   CURRENT_BG=$1
   [[ -n $3 ]] && echo -n $3
@@ -41,12 +30,9 @@ prompt_end() {
   CURRENT_BG=''
 }
 
-### Prompt components
-# Each component will draw itself, and hide itself if no information needs to be shown
-
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-  local user=`whoami`
+  local user=$(whoami)
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment black default "%(!.%{%F{yellow}%}.)✝"
@@ -55,8 +41,8 @@ prompt_context() {
 
 # Git: branch/detached head, dirty status
 prompt_git() {
-  local ref dirty
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
+    local ref dirty
     ZSH_THEME_GIT_PROMPT_DIRTY='±'
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
@@ -72,7 +58,6 @@ prompt_git() {
 # Dir: current working directory
 prompt_dir() {
   prompt_segment blue white '%3~'
-  # prompt_segment blue black "…${PWD: -30}"
 }
 
 # Status:
@@ -80,8 +65,7 @@ prompt_dir() {
 # - am I root
 # - are there background jobs?
 prompt_status() {
-  local symbols
-  symbols=()
+  local symbols=()
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
