@@ -1,5 +1,3 @@
-Certainly! Here's a README for the configuration file along with instructions on how to get started:
-
 # Tmux Configuration
 
 This repository contains a custom configuration file for Tmux, a terminal multiplexer. The configuration provides various enhancements and keybindings to improve your Tmux experience.
