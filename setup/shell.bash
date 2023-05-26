@@ -67,7 +67,7 @@ function main() {
 
   # Install zsh theme
   echo_msg "Installing zsh theme"
-  ln -sf "${dotfiles_dir}/zsh/cobalt2.zsh-theme" "${HOME}/.oh-my-zsh/themes/"
+  ln -sf "${dotfiles_dir}/zsh/me.zsh-theme" "${HOME}/.oh-my-zsh/themes/"
   echo_msg "Zsh theme installed"
 
   # Link dotfiles
