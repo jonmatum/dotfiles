@@ -26,7 +26,7 @@ function clone_repository() {
 # Main function
 function main() {
   local dotfiles_dir="${HOME}/.dotfiles"
-  local backup_dir="${HOME}/.dotfiles_backup/${EPOCH}"
+  local backup_dir="${HOME}/.dotfiles_backup/$(date +%s)"
   local shell=$(basename "${SHELL}")
 
   # Backup existing dotfiles
