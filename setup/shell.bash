@@ -3,16 +3,21 @@
 # Author: Jonatan Mata
 # Date: 2023-05-26
 
+
 set -euo pipefail
 
-# Function to print informational messages
+# Function to print informational messages in cyan color
 function echo_msg() {
-  echo "- ${1:-}"
+  local cyan='\033[0;36m'
+  local reset='\033[0m'
+  echo -e "${cyan}- ${1:-}${reset}"
 }
 
-# Function to print error messages
+# Function to print error messages in red color
 function echo_err() {
-  echo "ERROR: ${1:-Unable to configure dotfiles}"
+  local red='\033[0;31m'
+  local reset='\033[0m'
+  echo -e "${red}ERROR: ${1:-Unable to configure dotfiles}${reset}"
 }
 
 # Function to clone a repository
@@ -20,6 +25,7 @@ function clone_repository() {
   local repository_url=$1
   local destination=$2
 
+  echo_msg "Cloning repository: $repository_url"
   git clone --depth=1 "${repository_url}" "${destination}"
 }
 
@@ -37,8 +43,10 @@ function main() {
     for file in .dotfiles .oh-my-zsh .vimrc .zshrc .zshenv .tmux.conf; do
       if [[ -h "${HOME}/${file}" ]]; then
         unlink "${HOME}/${file}"
+        echo_msg "Removing existing symbolic link: ${HOME}/${file}"
       elif [[ -f "${HOME}/${file}" ]] || [[ -d "${HOME}/${file}" ]]; then
         mv "${HOME}/${file}" "${backup_dir}"
+        echo_msg "Moving existing file/directory: ${HOME}/${file} to ${backup_dir}"
       fi
     done
   fi
@@ -59,19 +67,23 @@ function main() {
 
   # Install zsh theme
   echo_msg "Installing zsh theme"
-  ln -s "${dotfiles_dir}/zsh/cobalt2.zsh-theme" "${HOME}/.oh-my-zsh/themes/"
+  ln -sf "${dotfiles_dir}/zsh/cobalt2.zsh-theme" "${HOME}/.oh-my-zsh/themes/"
+  echo_msg "Zsh theme installed"
 
   # Link dotfiles
   echo_msg "Linking dotfiles"
   for file in zshrc tmux vimrc; do
     if [[ -f "${dotfiles_dir}/${file}/${file}.conf" ]]; then
-      ln -s "${dotfiles_dir}/${file}/${file}.conf" "${HOME}/.${file}"
+      ln -sf "${dotfiles_dir}/${file}/${file}.conf" "${HOME}/.${file}.conf"
+      echo_msg "Linked dotfile: ${file}.conf"
     elif [[ -f "${dotfiles_dir}/${file}/${file}" ]]; then
-      ln -s "${dotfiles_dir}/${file}/${file}" "${HOME}/.${file}"
+      ln -sf "${dotfiles_dir}/${file}/${file}" "${HOME}/.${file}"
+      echo_msg "Linked dotfile: ${file}"
     else
       local file_without_rc="${file%rc}"
       if [[ -f "${dotfiles_dir}/${file_without_rc}/${file}" ]]; then
-        ln -s "${dotfiles_dir}/${file_without_rc}/${file}" "${HOME}/.${file}"
+        ln -sf "${dotfiles_dir}/${file_without_rc}/${file}" "${HOME}/.${file}"
+        echo_msg "Linked dotfile: ${file}"
       fi
     fi
   done
@@ -85,6 +97,7 @@ function main() {
     mkdir -p "${local_helpers_dir}"
     for dir in scripts aliases git miscellaneous; do
       cp -r "${helpers_dir}/${dir}" "${local_helpers_dir}"
+      echo_msg "Copied helper directory: ${dir}"
     done
   fi
 
@@ -93,6 +106,7 @@ function main() {
     if command -v zsh >/dev/null 2>&1; then
       echo_msg "Changing user shell to zsh"
       chsh -s "$(command -v zsh)"
+      echo_msg "User shell changed to zsh"
     else
       echo_err "Zsh is not installed. Please install zsh and re-run the script."
       exit 1
