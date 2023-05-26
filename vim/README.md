@@ -18,7 +18,7 @@ To get started with this vimrc configuration, follow the steps below:
 
 1. Clone the repository or download the `.vimrc` file:
    ```bash
-   wget https://raw.githubusercontent.com/jonmatum/dotfiles/main/vim/vimrc
+   curl https://raw.githubusercontent.com/jonmatum/dotfiles/main/vim/vimrc > .vimrc
    ```
    Alternatively, you can manually download the `.vimrc` file and save it to your home directory.
 
