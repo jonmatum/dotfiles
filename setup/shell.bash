@@ -1,96 +1,105 @@
 #!/usr/bin/env bash
-# Copyright (c) 2019 Jonatan Mata
+# dotfiles installation script
+# Author: Jonatan Mata
+# Date: 2023-05-26
 
-EPOCH=$(date +%s)
+set -euo pipefail
 
-function echo_msg()
-{
+# Function to print informational messages
+function echo_msg() {
   echo "- ${1:-}"
 }
 
-function echo_err()
-{
+# Function to print error messages
+function echo_err() {
   echo "ERROR: ${1:-Unable to configure dotfiles}"
 }
 
-function install_homebrew()
-{
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Function to install Homebrew (macOS package manager)
+function install_homebrew() {
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
 
-# TODO::Add OS support to install software using, brew or any linux package manager like apt or yum.
-function main()
-{
-  cd "${HOME}" || exit ${?}
+# Main function
+function main() {
+  local dotfiles_dir="${HOME}/.dotfiles"
+  local backup_dir="${HOME}/.dotfiles_backup/$(date +%s)"
+  local shell=$(basename "${SHELL}")
 
-  local b p s c h
+  # Backup existing dotfiles
+  if [[ -d "${dotfiles_dir}" ]]; then
+    echo_msg "Backing up existing dotfiles to: ${backup_dir}"
+    mkdir -p "${backup_dir}"
 
-  p='.dotfiles'
-
-  if [[ -d "${p}" ]]; then
-    b="${HOME}/.dotfiles_backup/${EPOCH}"
-    mkdir -p "${b}"
-
-    echo_msg "Backup of old .dotfiles at: ${b}."
-    for i in .dotfiles .oh-my-zsh .vimrc .zshrc .zshenv .tmux.conf;do
-      if [[ -h "${i}" ]];then
-        unlink "${i}"
-      elif [[ -f "${i}" ]] || [[ -d "${i}" ]]; then
-        mv "${i}" "${b}"
+    for file in .dotfiles .oh-my-zsh .vimrc .zshrc .zshenv .tmux.conf; do
+      if [[ -h "${HOME}/${file}" ]]; then
+        unlink "${HOME}/${file}"
+      elif [[ -f "${HOME}/${file}" ]] || [[ -d "${HOME}/${file}" ]]; then
+        mv "${HOME}/${file}" "${backup_dir}"
       fi
     done
   fi
 
-  echo_msg "Install Powerline fonts."
+  # Install Powerline fonts
+  echo_msg "Installing Powerline fonts"
   git clone https://github.com/powerline/fonts.git --depth=1
-  cd fonts || exit ${?}
-  ./install.sh
-  cd .. || exit ${?}
+  (cd fonts && ./install.sh)
   rm -rf fonts
 
-  echo_msg "Clone oh-my-zsh"
+  # Clone oh-my-zsh
+  echo_msg "Cloning oh-my-zsh"
   git clone https://github.com/robbyrussell/oh-my-zsh.git "${HOME}/.oh-my-zsh"
 
-  echo_msg "Clone jonmatum's dotfiles"
-  git clone https://github.com/jonmatum/dotfiles.git "${HOME}/.dotfiles"
+  # Clone dotfiles repository
+  echo_msg "Cloning dotfiles repository"
+  git clone https://github.com/jonmatum/dotfiles.git "${dotfiles_dir}"
 
-  echo_msg "Install zsh theme"
-  cd "${HOME}/.oh-my-zsh/themes" || exit ${?}
-  ln -s "${HOME}/.dotfiles/zsh/cobalt2.zsh-theme" .
+  # Install zsh theme
+  echo_msg "Installing zsh theme"
+  ln -s "${dotfiles_dir}/zsh/cobalt2.zsh-theme" "${HOME}/.oh-my-zsh/themes/"
 
-  echo_msg "Link .dotfiles"
-  cd "${HOME}" || exit ${?}
-  for i in zshrc tmux vimrc;do
-    if [[ -f "${p}/${i}/${i}.conf" ]]; then
-      ln -s "${p}/${i}/${i}.conf" ".${i}.conf"
-    elif [[ -f "${p}/${i}/${i}" ]]; then
-      ln -s "${p}/${i}/${i}" ".${i}"
+  # Link dotfiles
+  echo_msg "Linking dotfiles"
+  for file in zshrc tmux vimrc; do
+    if [[ -f "${dotfiles_dir}/${file}/${file}.conf" ]]; then
+      ln -s "${dotfiles_dir}/${file}/${file}.conf" "${HOME}/.${file}"
+    elif [[ -f "${dotfiles_dir}/${file}/${file}" ]]; then
+      ln -s "${dotfiles_dir}/${file}/${file}" "${HOME}/.${file}"
     else
-      c=$(echo ${i}|tr -d rc)
-      if [[ -f "${p}/${c}/${i}" ]];then
-        ln -s "${p}/${c}/${i}" ".${i}"
+      local file_without_rc=$(echo "${file}" | sed 's/rc$//')
+      if [[ -f "${dotfiles_dir}/${file_without_rc}/${file}" ]]; then
+        ln -s "${dotfiles_dir}/${file_without_rc}/${file}" "${HOME}/.${file}"
       fi
     fi
   done
- 
-  echo_msg "Init local helpers"
-  h="${HOME}/.dotfiles_helpers"
-  if [[ ! -d "${h}" ]]; then
-    mkdir -p "${h}"
-    for i in scripts aliases git miscellaneous;do
-      cp -r "${p}/helpers/${i}" "${h}"
+
+  # Initialize local helpers
+  local helpers_dir="${dotfiles_dir}/helpers"
+  local local_helpers_dir="${dotfiles_dir}/.dotfiles_helpers"
+
+  echo_msg "Initializing local helpers"
+  if [[ ! -d "${local_helpers_dir}" ]]; then
+    mkdir -p "${local_helpers_dir}"
+    for dir in scripts aliases git miscellaneous; do
+      cp -r "${helpers_dir}/${dir}" "${local_helpers_dir}"
     done
   fi
 
-  if (echo "${SHELL}"|grep -vq 'zsh'); then
-    s="$(command -v zsh)"
-    if [[ -f "${s}" ]];then
-      echo_msg "Change user shell to zsh"
-      chsh -s "${s}"
+  # Change user shell to zsh if it's not already set
+  if [[ "${shell}" != "zsh" ]]; then
+    if command -v zsh >/dev/null 2>&1; then
+      echo_msg "Changing user shell to zsh"
+      chsh -s "$(command -v zsh)"
+    else
+      echo_err "Zsh is not installed. Please install zsh and re-run the script."
+      exit 1
     fi
   fi
+
+  echo_msg "Dotfiles installation completed successfully!"
 }
 
+# Execute the main function
 main
 
-exit ${?}
+exit $?
