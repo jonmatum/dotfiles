@@ -11,7 +11,7 @@ else
 endif
 
 let g:vim_bootstrap_langs = "html,javascript,php,python"
-let g:vim_bootstrap_editor = "vim"				" nvim or vim
+let g:vim_bootstrap_editor = "vim"                              " nvim or vim
 let g:vim_bootstrap_theme = "codedark"
 let g:vim_bootstrap_frams = ""
 
@@ -201,7 +201,7 @@ else
   let g:indentLine_char = '┆'
   let g:indentLine_faster = 1
 
-  
+
   if $COLORTERM == 'gnome-terminal'
     set term=gnome-256color
   else
@@ -209,7 +209,7 @@ else
       set term=xterm-256color
     endif
   endif
-  
+
 endif
 
 
