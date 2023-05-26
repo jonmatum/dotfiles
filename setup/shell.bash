@@ -15,15 +15,18 @@ function echo_err() {
   echo "ERROR: ${1:-Unable to configure dotfiles}"
 }
 
-# Function to install Homebrew (macOS package manager)
-function install_homebrew() {
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Function to clone a repository
+function clone_repository() {
+  local repository_url=$1
+  local destination=$2
+
+  git clone --depth=1 "${repository_url}" "${destination}"
 }
 
 # Main function
 function main() {
   local dotfiles_dir="${HOME}/.dotfiles"
-  local backup_dir="${HOME}/.dotfiles_backup/$(date +%s)"
+  local backup_dir="${HOME}/.dotfiles_backup/${EPOCH}"
   local shell=$(basename "${SHELL}")
 
   # Backup existing dotfiles
@@ -42,17 +45,17 @@ function main() {
 
   # Install Powerline fonts
   echo_msg "Installing Powerline fonts"
-  git clone https://github.com/powerline/fonts.git --depth=1
+  clone_repository "https://github.com/powerline/fonts.git" "fonts"
   (cd fonts && ./install.sh)
   rm -rf fonts
 
   # Clone oh-my-zsh
   echo_msg "Cloning oh-my-zsh"
-  git clone https://github.com/robbyrussell/oh-my-zsh.git "${HOME}/.oh-my-zsh"
+  clone_repository "https://github.com/robbyrussell/oh-my-zsh.git" "${HOME}/.oh-my-zsh"
 
   # Clone dotfiles repository
   echo_msg "Cloning dotfiles repository"
-  git clone https://github.com/jonmatum/dotfiles.git "${dotfiles_dir}"
+  clone_repository "https://github.com/jonmatum/dotfiles.git" "${dotfiles_dir}"
 
   # Install zsh theme
   echo_msg "Installing zsh theme"
@@ -66,7 +69,7 @@ function main() {
     elif [[ -f "${dotfiles_dir}/${file}/${file}" ]]; then
       ln -s "${dotfiles_dir}/${file}/${file}" "${HOME}/.${file}"
     else
-      local file_without_rc=$(echo "${file}" | sed 's/rc$//')
+      local file_without_rc="${file%rc}"
       if [[ -f "${dotfiles_dir}/${file_without_rc}/${file}" ]]; then
         ln -s "${dotfiles_dir}/${file_without_rc}/${file}" "${HOME}/.${file}"
       fi
