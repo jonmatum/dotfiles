@@ -15,6 +15,13 @@ get_latest_aws_cli_version() {
     echo "$awscli_latest_version"
 }
 
+# Function to update SSL certificates
+update_ssl_certificates() {
+    echo "Updating SSL certificates..."
+    sudo update-ca-certificates --fresh
+    echo "SSL certificates updated successfully!"
+}
+
 # Function to install AWS CLI
 install_aws_cli() {
     echo "Installing AWS CLI..."
@@ -36,6 +43,7 @@ if is_aws_cli_installed; then
         read -p "Do you want to update AWS CLI? (y/n): " update_choice
 
         if [ "$update_choice" == "y" ]; then
+            update_ssl_certificates
             install_aws_cli
             echo "AWS CLI updated successfully to version $latest_version."
         else
@@ -45,6 +53,12 @@ if is_aws_cli_installed; then
         echo "AWS CLI is already up to date."
     fi
 else
-    install_aws_cli
+    if [ -d "/usr/local/aws-cli/v2/current" ]; then
+        echo "Found preexisting AWS CLI installation: /usr/local/aws-cli/v2/current."
+        echo "Please rerun the install script with the --update flag to update the installation."
+    else
+        update_ssl_certificates
+        install_aws_cli
+    fi
 fi
 
