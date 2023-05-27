@@ -3,31 +3,36 @@
 # Author: Jonatan Mata
 # Date: 2023-05-26
 
-
 set -euo pipefail
 
-# Function to print informational messages in cyan color
+# Define log file path
+log_file="dotfiles_installation.log"
+
+# Function to print informational messages in cyan color and redirect to log
 function echo_msg() {
   local cyan='\033[0;36m'
   local reset='\033[0m'
-  echo -e "${cyan}- ${1:-}${reset}"
+  echo -e "${cyan}- ${1:-}${reset}" | tee -a "$log_file"
 }
 
-# Function to print error messages in red color
+# Function to print error messages in red color and redirect to log
 function echo_err() {
   local red='\033[0;31m'
   local reset='\033[0m'
-  echo -e "${red}ERROR: ${1:-Unable to configure dotfiles}${reset}"
+  echo -e "${red}ERROR: ${1:-Unable to configure dotfiles}${reset}" | tee -a "$log_file"
 }
 
-# Function to clone a repository
+# Function to clone a repository and redirect output to log
 function clone_repository() {
   local repository_url=$1
   local destination=$2
 
   echo_msg "Cloning repository: $repository_url"
-  git clone --depth=1 "${repository_url}" "${destination}"
+  git clone --depth=1 "${repository_url}" "${destination}" >> "$log_file" 2>&1
 }
+
+# Redirect all output to log file
+exec > >(tee -a "$log_file") 2>&1
 
 # Main function
 function main() {
@@ -69,7 +74,7 @@ function main() {
   echo_msg "Installing zsh theme"
   ln -sf "${dotfiles_dir}/zsh/me.zsh-theme" "${HOME}/.oh-my-zsh/themes/"
   echo_msg "Zsh theme installed"
-  
+
   # Install zsh-autosuggestions plugin
   echo "Installing zsh-autosuggestions plugin..."
   git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
@@ -79,7 +84,7 @@ function main() {
   echo "Installing zsh-syntax-highlighting plugin..."
   git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
   echo "zsh-syntax-highlighting installation complete."
-  
+
   # Install Python3 if it's not already installed
   if ! command -v python3 &>/dev/null; then
     echo_msg "Python3 is not installed. Installing Python3..."
@@ -169,4 +174,8 @@ function main() {
 # Execute the main function
 main
 
+# Print message to user with log file location
+echo_msg "Script execution log is available at: $log_file"
+
 exit $?
+
