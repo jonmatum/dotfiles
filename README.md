@@ -1,8 +1,6 @@
-# Dotfiles Repository
+# Dotfiles Repository 2023
 
 This repository contains my custom dotfiles for configuring my development environment on macOS, Linux, and Windows Subsystem for Linux (WSL). These dotfiles include various configurations and settings that help me reproduce my preferred setup quickly and easily.
-
-![Terminal Screenshot](https://github.com/jonmatum/dotfiles/blob/0931840be160caf763ffc6cb3a406d4f67d81521/screenshot.jpg?raw=true)
 
 ![image](https://github.com/jonmatum/dotfiles/assets/4975788/e06138aa-ceef-4250-b718-a8bca1485a88)
 
