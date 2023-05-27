@@ -29,7 +29,7 @@ function execute_script() {
 
     # Execute the script
     echo_msg "Running $script_name..."
-    "$script_path" >/dev/null
+    "$script_path" >/tmp/${script_name}-$(date +%s).log 2>&1
 
     # Remove the script
     rm "$script_path"
