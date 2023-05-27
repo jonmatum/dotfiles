@@ -113,19 +113,16 @@ function download_file() {
 }
 
 # This function clones a Git repository from a specified URL to a specified location.
-# If the destination already exists, it is moved to a backup location before the clone operation.
 # Args:
 #   $1: The URL of the Git repository to clone.
 #   $2: The location where the repository should be cloned to.
 function clone_repository() {
     REPO_URL=$1
     DESTINATION=$2
-    BACKUP_DESTINATION="${DESTINATION}_backup_$(date +%Y%m%d%H%M%S)"
+    BACKUP_LOCATION=$3
 
-    # If the destination directory exists, back it up
-    if [ -d "$DESTINATION" ]; then
-        echo_msg "Destination $DESTINATION already exists, moving to backup location $BACKUP_DESTINATION"
-        mv "$DESTINATION" "$BACKUP_DESTINATION"
+    if [[ -d "${BACKUP_LOCATION}" ]]; then
+        mv "${DESTINATION}" "$(date +%s)_${BACKUP_LOCATION}"
     fi
 
     if git clone "$REPO_URL" "$DESTINATION"; then
@@ -166,7 +163,7 @@ function install_fonts() {
 # zsh-autosuggestions and zsh-syntax-highlighting plugins.
 function configure_zsh() {
     echo_msg "Cloning oh-my-zsh"
-    clone_repository "https://github.com/robbyrussell/oh-my-zsh.git" "${HOME}/.oh-my-zsh"
+    clone_repository "https://github.com/robbyrussell/oh-my-zsh.git" "${HOME}/.oh-my-zsh" "${HOME}/.dotfiles_backups"
 
     echo_msg "Installing zsh-autosuggestions plugin..."
     git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
