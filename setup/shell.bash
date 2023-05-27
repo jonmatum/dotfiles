@@ -162,7 +162,7 @@ function main() {
   if [[ "${shell}" != "zsh" ]]; then
     if command -v zsh >/dev/null 2>&1; then
       echo_msg "Changing user shell to zsh"
-      chsh -s "$(command -v zsh)"
+      chsh -s "$(command -v zsh)" || true
       echo_msg "User shell changed to zsh"
     else
       echo_err "Zsh is not installed. Please install zsh and re-run the script."
