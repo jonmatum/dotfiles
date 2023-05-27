@@ -252,6 +252,6 @@ function install_zsh_theme() {
 configure_file "https://raw.githubusercontent.com/jonmatum/dotfiles/main/zsh/.zshrc" "${HOME}" "${HOME}/.dotfiles_backups"
 install_fonts
 configure_zsh
+install_zsh_theme "https://raw.githubusercontent.com/jonmatum/dotfiles/main/zsh/me.zsh-theme"
 configure_python
 configure_shell
-install_zsh_theme "https://raw.githubusercontent.com/jonmatum/dotfiles/main/zsh/me.zsh-theme"
