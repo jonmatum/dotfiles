@@ -11,9 +11,10 @@ is_aws_cli_installed() {
 
 # Function to get the latest version of AWS CLI
 get_latest_aws_cli_version() {
-    awscli_latest_version=$(curl -s "https://awscli.amazonaws.com/exe/linux-x86_64/latest_version")
+    awscli_latest_version=$(curl -sL "https://github.com/aws/aws-cli/releases/latest" | grep -oP '(?<=tag\/v)\d+\.\d+\.\d+' | head -1)
     echo "$awscli_latest_version"
 }
+
 
 # Function to install AWS CLI
 install_aws_cli() {
