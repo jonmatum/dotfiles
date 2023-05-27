@@ -31,7 +31,7 @@ pyflakes==2.5.0
 Pygments==2.13.0
 pynvim==0.4.3
 six==1.16.0
-sqlparse==0.4.2
+sqlparse==0.4.4
 stack-data==0.5.1
 tomli==2.0.1
 traitlets==5.4.0
