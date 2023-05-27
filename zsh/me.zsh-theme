@@ -3,7 +3,7 @@
 # agnoster's Theme - https://gist.github.com/3712874
 # A Powerline-inspired theme for ZSH
 #
-# README
+# # README
 #
 # In order for this theme to render correctly, you will need a
 # [Powerline-patched font](https://github.com/Lokaltog/powerline-fonts).
@@ -20,7 +20,7 @@
 # SOLARIZED_THEME variable to "light". If you don't specify, we'll assume
 # you're using the "dark" variant.
 #
-# Goals
+# # Goals
 #
 # The aim of this theme is to only show you *relevant* information. Like most
 # prompts, it will only show git information when in a git working directory.
@@ -35,17 +35,13 @@
 CURRENT_BG='NONE'
 
 case ${SOLARIZED_THEME:-dark} in
-  light)
-    CURRENT_FG='white'
-    ;;
-  *)
-    CURRENT_FG='black'
-    ;;
+    light) CURRENT_FG='white';;
+    *)     CURRENT_FG='black';;
 esac
 
 # Special Powerline characters
 
-get_segment_separator() {
+() {
   local LC_ALL="" LC_CTYPE="en_US.UTF-8"
   # NOTE: This segment separator character is correct.  In 2012, Powerline changed
   # the code points they use for their special characters. This is the new code point.
@@ -93,7 +89,7 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)✝"
+    prompt_segment black default "%(!.%{%F{yellow}%}.)+"
   fi
 }
 
@@ -104,13 +100,13 @@ prompt_git() {
     return
   fi
   local PL_BRANCH_CHAR
-  get_branch_char() {
+  () {
     local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-    PL_BRANCH_CHAR=$'\ue0a0' # 
+    PL_BRANCH_CHAR=$'\ue0a0'         # 
   }
   local ref dirty mode repo_path
 
-  if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]]; then
+   if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]]; then
     ZSH_THEME_GIT_PROMPT_DIRTY='±'
     repo_path=$(git rev-parse --git-dir 2>/dev/null)
     dirty=$(parse_git_dirty)
@@ -159,10 +155,10 @@ prompt_bzr() {
     status_mod=$(echo -n "$bzr_status" | head -n1 | grep "modified" | wc -m)
     status_all=$(echo -n "$bzr_status" | head -n1 | wc -m)
     revision=${$(bzr log -r-1 --log-format line | cut -d: -f1):gs/%/%%}
-    if [[ $status_mod -gt 0 ]]; then
+    if [[ $status_mod -gt 0 ]] ; then
       prompt_segment yellow black "bzr@$revision +"
     else
-      if [[ $status_all -gt 0 ]]; then
+      if [[ $status_all -gt 0 ]] ; then
         prompt_segment yellow black "bzr@$revision"
       else
         prompt_segment green black "bzr@$revision"
@@ -193,10 +189,10 @@ prompt_hg() {
       st=""
       rev=$(hg id -n 2>/dev/null | sed 's/[^-0-9]//g')
       branch=$(hg id -b 2>/dev/null)
-      if $(hg st | grep -q "^\?"); then
+      if `hg st | grep -q "^\?"`; then
         prompt_segment red black
         st='±'
-      elif $(hg st | grep -q "^[MA]"); then
+      elif `hg st | grep -q "^[MA]"`; then
         prompt_segment yellow black
         st='±'
       else
@@ -209,12 +205,12 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-  if $(whoami | grep -qi root); then
+  if $(whoami|grep -qi root); then
     prompt_segment red white '%3~'
   else
-    if $(hostname | grep -qi nafp); then
+    if $(hostname|grep -qi nafp); then
       prompt_segment red white '%3~'
-    elif $(hostname | grep -qi nafd); then
+    elif $(hostname|grep -qi nafd); then
       prompt_segment magenta white '%3~'
     else
       prompt_segment blue white '%3~'
@@ -243,7 +239,7 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 
-# AWS Profile:
+#AWS Profile:
 # - display current AWS_PROFILE name
 # - displays yellow on red if profile name contains 'production' or
 #   ends in '-prod'
