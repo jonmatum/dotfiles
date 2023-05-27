@@ -1,23 +1,25 @@
-# Dotfiles Repository (2023 Update)
+# Just Another Dotfiles Repository (2023 Update)
 
-This repository contains my custom dotfiles for configuring my development environment on macOS, Linux, and Windows Subsystem for Linux (WSL). These dotfiles include various configurations and settings that help me reproduce my preferred setup quickly and easily.
+Welcome to just another dotfiles repository, though it's anything but ordinary. This repository is a testament to my journey in customizing and optimizing development environments. After several years working solely on MacOS and GNU/Linux, I have recently made my return to the Windows ecosystem. Thanks to the Windows Subsystem for Linux (WSL), I've found an unparalleled sense of satisfaction, as it allows me to tailor everything exactly to my needs and aesthetic preferences.
+
+Housed in this repository are my carefully crafted dotfiles that contain an array of settings and configurations, streamlining the task of recreating my ideal workspace across MacOS, GNU/Linux, and WSL.
 
 ![image](https://github.com/jonmatum/dotfiles/assets/4975788/e06138aa-ceef-4250-b718-a8bca1485a88)
 
 ## Table of Contents
 
-- [Terminal Theme Color](#github-dark-theme-for-vscode-terminal)
-- [GitHub Dark Dimmed Theme for VSCode Terminal](#github-dark-dimmed-theme-for-vscode-terminal)
+- [VSCode Terminal - GitHub Dark Like Theme](#github-dark-like-theme-for-vscode-terminal)
+- [VSCode Terminal - GitHub Dark Dimmed Like Theme](#github-dark-dimmed-like-theme-for-vscode-terminal)
 - [iTerm2 Configuration](#iterm2-configuration)
-- [Useful Links](#useful-links)
+- [Handy Resources](#useful-links)
 
-## GitHub Dark Theme for VSCode Terminal
+## VSCode Terminal - GitHub Dark Like Theme
 
-To customize the colors of your terminal, you can modify the `workbench.colorCustomizations` setting in Visual Studio Code. Follow these steps:
+Modify your terminal's colors in a way that suits your style! You can achieve this through the `workbench.colorCustomizations` setting in Visual Studio Code. Here are the steps to follow:
 
-1. Open user settings by pressing `Ctrl+,` (or go to `Preferences > Settings`).
-2. Search for "workbench" and select "Edit in settings.json" under Color Customizations.
-3. Add or modify the following JSON configuration with your preferred color values:
+1. Navigate to user settings by pressing `Ctrl+,` or heading to `Preferences > Settings`.
+2. Look for "workbench" and opt for "Edit in settings.json" under Color Customizations.
+3. Adapt the following JSON configuration to match your preferred color palette:
 
 ```json
 {
@@ -46,9 +48,9 @@ To customize the colors of your terminal, you can modify the `workbench.colorCus
 }
 ```
 
-## GitHub Dark Dimmed Theme for VSCode Terminal
+## VSCode Terminal - GitHub Dark Dimmed Like Theme
 
-If you prefer the GitHub Dark Dimmed theme for your VS Code terminal, you can use the following configuration:
+If the GitHub Dark Dimmed theme appeals to you for your VS Code terminal, consider implementing the following configuration:
 
 ```json
 {
@@ -72,7 +74,6 @@ If you prefer the GitHub Dark Dimmed theme for your VS Code terminal, you can us
     "terminal.ansiMagenta": "#563d7c",
     "terminal.ansiRed": "#9d3d3e",
     "terminal.ansiWhite": "#f0f6fc",
-
     "terminal.ansiYellow": "#f1e05a"
   }
 }
@@ -80,18 +81,18 @@ If you prefer the GitHub Dark Dimmed theme for your VS Code terminal, you can us
 
 ## iTerm2 Configuration
 
-To configure iTerm2 to send text at startup, add the following command to your iTerm2 profile:
+To command iTerm2 to dispatch text at startup, incorporate the following command into your iTerm2 profile:
 
 ```
 tmux new-session -d -s HappyHacking -n myWindow;tmux attach -t HappyHacking:myWindow
 ```
 
-## Useful Links
+## Handy Resources
 
-- [GitHub's Collection of .gitignore Templates](https://github.com/github/gitignore)
+- [GitHub's Variety of .gitignore Templates](https://github.com/github/gitignore)
 - [vim-github-dark](https://github.com/vv9k/vim-github-dark)
 
-Feel free to explore and use these dotfiles to enhance your own development environment.
+Feel free to dive into these dotfiles and tailor them to elevate your personal development environment. The possibilities are endless!
 
 --
-Happy hacking and Pura Vida!
+Happy Hacking and Pura Vida!
