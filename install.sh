@@ -61,6 +61,7 @@ function execute_script() {
 
 # Execute additional scripts
 execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/setup/shell.bash"
+execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/aws/install-aws-cli.sh"
 
 # Print completion message
 echo_msg "Installation completed successfully!"
