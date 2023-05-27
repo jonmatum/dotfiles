@@ -64,8 +64,11 @@ function execute_script() {
 }
 
 # Execute additional scripts
-execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/setup/shell.bash"
+execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/zsh/setup-zsh.bash"
+execute_script "https://github.com/jonmatum/dotfiles/blob/main/tmux/setup-tmux.bash"
 execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/aws/install-aws-cli.sh"
+
+## TODO: Add vi(*) setup and git
 
 # Print completion message
 echo_msg "Installation completed successfully!"
