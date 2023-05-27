@@ -151,7 +151,7 @@ function main() {
   if [[ ! -d "${local_helpers_dir}" ]]; then
     mkdir -p "${local_helpers_dir}"
     for dir in scripts aliases git miscellaneous; do
-      if [[ -d ${dir} ]]; then
+      if [[ -d "${helpers_dir}/${dir}" ]]; then
         cp -r "${helpers_dir}/${dir}" "${local_helpers_dir}"
         echo_msg "Copied helper directory: ${dir}"
       fi
