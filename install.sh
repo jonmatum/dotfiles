@@ -16,13 +16,14 @@ function echo_msg() {
 
 # Function to confirm user's choice
 function confirm() {
+    local response
     read -r -p "$1 [y/N]: " response
     case "$response" in
     [yY][eE][sS] | [yY])
-        true
+        return 0
         ;;
     *)
-        false
+        return 1
         ;;
     esac
 }
