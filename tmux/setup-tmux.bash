@@ -112,7 +112,7 @@ function download_file() {
 install_prerequisites
 
 # Define the URL of the file you want to download
-FILE_URL="https://raw.githubusercontent.com/jonmatum/dotfiles/main/tmux/tmux.conf"
+FILE_URL="https://raw.githubusercontent.com/jonmatum/dotfiles/main/tmux/.tmux.conf"
 
 # Define the location where the downloaded file should be stored
 FILE_LOCATION="${HOME}"
