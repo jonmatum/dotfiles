@@ -115,7 +115,7 @@ install_prerequisites
 FILE_URL="https://raw.githubusercontent.com/jonmatum/dotfiles/main/tmux/tmux.conf"
 
 # Define the location where the downloaded file should be stored
-FILE_LOCATION="${HOME}/tmux.conf"
+FILE_LOCATION="${HOME}"
 
 # Define the location for the backup files
 BACKUP_LOCATION="${HOME}/.dotfiles_backups"
