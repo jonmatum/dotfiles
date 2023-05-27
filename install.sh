@@ -7,6 +7,9 @@
 
 set -euo pipefail
 
+# Define log file path
+log_file="/tmp/dotfiles-installation-$(date +%s).log"
+
 # Function to print informational messages in cyan color and redirect to log
 function echo_msg() {
     local cyan='\033[0;36m'
@@ -39,20 +42,21 @@ function execute_script() {
     local script_name=${script_url##*/}
     local script_path="/tmp/$script_name"
 
-    # Download the script
-    echo_msg "Downloading $script_name..."
-    curl -sSL -o "$script_path" "$script_url"
-
-    # Make the script executable
-    chmod +x "$script_path"
-
     # Prompt user for confirmation
     if confirm "Do you want to run $script_name?"; then
+
+        # Download the script
+        echo_msg "Downloading $script_name..."  | tee -a "$log_file"
+        curl -sSL -o "$script_path" "$script_url"
+
+        # Make the script executable
+        chmod +x "$script_path"
         # Execute the script
-        echo_msg "Running $script_name..."
-        "$script_path" >/tmp/${script_name}-$(date +%s).log 2>&1
+        echo_msg "Running $script_name..."  | tee -a "$log_file"
+        "$script_path" >>"$log_file" 2>&1
+
     else
-        echo_msg "Skipping $script_name..."
+        echo_msg "Skipping $script_name..."  | tee -a "$log_file"
     fi
 
     # Remove the script
@@ -60,8 +64,8 @@ function execute_script() {
 }
 
 # Execute additional scripts
-execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/setup/shell.bash"
+execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/setup/shell.bash" 
 execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/aws/install-aws-cli.sh"
 
 # Print completion message
-echo_msg "Installation completed successfully!"
+echo_msg "Installation completed successfully!"  | tee -a "$log_file"
