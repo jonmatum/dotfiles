@@ -6,7 +6,7 @@
 set -euo pipefail
 
 # Define log file path
-log_file="dotfiles_installation.log"
+log_file="/tmp/dotfiles-installation-$(date +%s).log"
 
 # Function to print informational messages in cyan color and redirect to log
 function echo_msg() {
@@ -28,7 +28,7 @@ function clone_repository() {
   local destination=$2
 
   echo_msg "Cloning repository: $repository_url"
-  git clone --depth=1 "${repository_url}" "${destination}" >> "$log_file" 2>&1
+  git clone --depth=1 "${repository_url}" "${destination}" >>"$log_file" 2>&1
 }
 
 # Redirect all output to log file
@@ -46,7 +46,7 @@ function main() {
     mkdir -p "${backup_dir}"
 
     for file in .dotfiles .oh-my-zsh .vimrc .zshrc .zshenv .tmux.conf; do
-      if [[ -h "${HOME}/${file}" ]]; then
+      if [[ -L "${HOME}/${file}" ]]; then
         unlink "${HOME}/${file}"
         echo_msg "Removing existing symbolic link: ${HOME}/${file}"
       elif [[ -f "${HOME}/${file}" ]] || [[ -d "${HOME}/${file}" ]]; then
@@ -178,4 +178,3 @@ main
 echo_msg "Script execution log is available at: $log_file"
 
 exit $?
-
