@@ -18,21 +18,11 @@ function echo_msg() {
 function execute_script() {
     local script_url=$1
     local script_name=${script_url##*/}
-    local script_path="$HOME/.dotfiles/scripts/$script_name"
 
-    # Download the script
+    # Download and execute the script
     echo_msg "Downloading $script_name..."
-    curl -sSL -o "$script_path" "$script_url"
+    curl -sSL -o "$script_path" "$script_url" | bash
 
-    # Make the script executable
-    chmod +x "$script_path"
-
-    # Execute the script
-    echo_msg "Running $script_name..."
-    "$script_path"
-
-    # Remove the script
-    rm "$script_path"
 }
 
 # Execute additional scripts
