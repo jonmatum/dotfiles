@@ -7,6 +7,9 @@
 
 set -euo pipefail
 
+# Define log file path
+log_file="/tmp/shell-installation-$(date +%s).log"
+
 # Function to print informational messages in cyan color and redirect to log
 function echo_msg() {
     local cyan='\033[0;36m'
