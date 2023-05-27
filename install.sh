@@ -24,7 +24,7 @@ function execute_script() {
 
     # Download and execute the script
     echo_msg "Downloading and executing:  $script_name..."
-    curl "$script_url"
+    curl "$script_url" | bash
 
 }
 
