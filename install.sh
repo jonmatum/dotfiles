@@ -70,5 +70,8 @@ execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/aws/ins
 
 ## TODO: Add vi(*) setup and git
 
+# Print message to user with log file location
+echo_msg "Script execution log is available at: $log_file"
+
 # Print completion message
 echo_msg "Installation completed successfully!"
