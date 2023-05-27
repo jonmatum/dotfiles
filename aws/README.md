@@ -14,12 +14,15 @@ This script installs AWS CLI and ensures that you have the latest version each t
    ```
    curl -O https://raw.githubusercontent.com/jonmatum/dotfiles/main/aws/install-aws-cli.sh |bash
    ```
+If AWS CLI is already installed, the script will check for updates and prompt you to update if a newer version is available. If AWS CLI is not installed, it will be installed automatically.
 
-   If AWS CLI is already installed, the script will check for updates and prompt you to update if a newer version is available. If AWS CLI is not installed, it will be installed automatically.
+2. Follow the on-screen instructions during the installation/update process.
 
-4. Follow the on-screen instructions during the installation/update process.
+3. Once the script completes, you should have the latest version of AWS CLI installed on your system.
 
-5. Once the script completes, you should have the latest version of AWS CLI installed on your system.
+## Execution Log
+
+The script logs the installation/update process in a file. You can find the log file at the location displayed after script execution.
 
 ## Contributing
 
