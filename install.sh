@@ -14,6 +14,19 @@ function echo_msg() {
     echo -e "${cyan}- ${1:-}${reset}"
 }
 
+# Function to confirm user's choice
+function confirm() {
+    read -r -p "$1 [y/N]: " response
+    case "$response" in
+    [yY][eE][sS] | [yY])
+        true
+        ;;
+    *)
+        false
+        ;;
+    esac
+}
+
 # Function to download and execute scripts
 function execute_script() {
     local script_url=$1
@@ -27,9 +40,14 @@ function execute_script() {
     # Make the script executable
     chmod +x "$script_path"
 
-    # Execute the script
-    echo_msg "Running $script_name..."
-    "$script_path" >/tmp/${script_name}-$(date +%s).log 2>&1
+    # Prompt user for confirmation
+    if confirm "Do you want to run $script_name?"; then
+        # Execute the script
+        echo_msg "Running $script_name..."
+        "$script_path" >/tmp/${script_name}-$(date +%s).log 2>&1
+    else
+        echo_msg "Skipping $script_name..."
+    fi
 
     # Remove the script
     rm "$script_path"
