@@ -41,22 +41,20 @@ function execute_script() {
     local script_url=$1
     local script_name=${script_url##*/}
     local script_path="/tmp/$script_name"
-    
+
     # Prompt user for confirmation
     if confirm "Do you want to run $script_name?"; then
-        (
-            # Download the script
-            echo_msg "Downloading $script_name..."
+        # Download the script
+        echo_msg "Downloading $script_name..."
 
-            curl -sSL -o "$script_path" "$script_url"
+        curl -sSL -o "$script_path" "$script_url"
 
-            # Make the script executable
-            chmod +x "$script_path"
+        # Make the script executable
+        chmod +x "$script_path"
 
-            # Execute the script
-            echo_msg "Running $script_name..."
-            "$script_path"
-        ) >>"$log_file" 2>&1
+        # Execute the script
+        echo_msg "Running $script_name..."
+        "$script_path" >>"$log_file" 2>&1
 
         # Remove the script
         rm "$script_path"
