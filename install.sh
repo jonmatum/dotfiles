@@ -41,7 +41,7 @@ function execute_script() {
     local script_url=$1
     local script_name=${script_url##*/}
     local script_path="/tmp/$script_name"
-
+    
     # Prompt user for confirmation
     if confirm "Do you want to run $script_name?"; then
         (
