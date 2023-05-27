@@ -14,7 +14,7 @@ log_file="/tmp/dotfiles-installation-$(date +%s).log"
 function echo_msg() {
     local cyan='\033[0;36m'
     local reset='\033[0m'
-    echo -e "${cyan}- ${1:-}${reset}"
+    echo -e "${cyan}- ${1:-}${reset}" | tee -a "$log_file"
 }
 
 # Function to confirm user's choice
@@ -44,28 +44,30 @@ function execute_script() {
 
     # Prompt user for confirmation
     if confirm "Do you want to run $script_name?"; then
+        (
+            # Download the script
+            echo_msg "Downloading $script_name..."
 
-        # Download the script
-        echo_msg "Downloading $script_name..."  | tee -a "$log_file"
-        curl -sSL -o "$script_path" "$script_url"
+            curl -sSL -o "$script_path" "$script_url"
 
-        # Make the script executable
-        chmod +x "$script_path"
-        # Execute the script
-        echo_msg "Running $script_name..."  | tee -a "$log_file"
-        "$script_path" >>"$log_file" 2>&1
+            # Make the script executable
+            chmod +x "$script_path"
 
+            # Execute the script
+            echo_msg "Running $script_name..."
+            "$script_path"
+        ) >>"$log_file" 2>&1
+
+        # Remove the script
+        rm "$script_path"
     else
-        echo_msg "Skipping $script_name..."  | tee -a "$log_file"
+        echo_msg "Skipping $script_name..."
     fi
-
-    # Remove the script
-    rm "$script_path"
 }
 
 # Execute additional scripts
-execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/setup/shell.bash" 
+execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/setup/shell.bash"
 execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/aws/install-aws-cli.sh"
 
 # Print completion message
-echo_msg "Installation completed successfully!"  | tee -a "$log_file"
+echo_msg "Installation completed successfully!"
