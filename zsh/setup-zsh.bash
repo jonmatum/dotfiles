@@ -221,8 +221,37 @@ function configure_shell() {
     fi
 }
 
+# Function to download and install a zsh theme from a GitHub repository
+function install_zsh_theme() {
+    local THEME_URL=$1
+    local THEME_NAME=$(basename "${THEME_URL}")
+    local THEMES_DIR="${HOME}/.oh-my-zsh/themes/"
+    local TARGET="${THEMES_DIR}/${THEME_NAME}"
+
+    # Check if oh-my-zsh themes directory exists
+    if [ ! -d "${THEMES_DIR}" ]; then
+        echo_err "oh-my-zsh themes directory does not exist. Please check your oh-my-zsh installation."
+        exit 1
+    fi
+
+    # Download theme file
+    echo_msg "Downloading zsh theme from ${THEME_URL}..."
+    if ! curl -L "${THEME_URL}" -o "${TARGET}"; then
+        echo_err "Error downloading zsh theme from ${THEME_URL}"
+        exit 1
+    else
+        echo_msg "Successfully downloaded zsh theme to ${TARGET}"
+    fi
+
+    # Install theme
+    echo_msg "Installing zsh theme..."
+    ln -sf "${TARGET}" "${THEMES_DIR}"
+    echo_msg "Zsh theme installed"
+}
+
 configure_file "https://raw.githubusercontent.com/jonmatum/dotfiles/main/zsh/.zshrc" "${HOME}" "${HOME}/.dotfiles_backups"
 install_fonts
 configure_zsh
 configure_python
 configure_shell
+install_zsh_theme "https://raw.githubusercontent.com/jonmatum/dotfiles/main/zsh/me.zsh-theme"
