@@ -69,7 +69,11 @@ function install_prerequisites() {
     # For example:
     # install_package git
 
-    install_package tmux
+    install_package git
+    install_package zsh
+    install_package python3
+    install_package pip3
+    install_package virtualenv
 }
 
 # Function to create backup location if it does not exist
@@ -108,26 +112,97 @@ function download_file() {
     fi
 }
 
-# Start by installing any prerequisites
-install_prerequisites
+# This function downloads a file from a specified URL and backs it up.
+# Args:
+#   $1: The URL of the file to download.
+#   $2: The location where the file should be saved.
+#   $3: The location where the backup should be stored.
+function configure_file() {
+    FILE_URL=$1
+    FILE_LOCATION=$2
+    BACKUP_LOCATION=$3
+    FILENAME=$(basename "${FILE_URL}")
 
-# Define the URL of the file you want to download
-FILE_URL="https://raw.githubusercontent.com/jonmatum/dotfiles/main/zsh/.zshrc"
+    install_prerequisites
+    create_backup_location
+    backup_existing_file
+    download_file
+}
 
-# Define the location where the downloaded file should be stored
-FILE_LOCATION="${HOME}"
+# This function installs Powerline fonts by cloning the repository
+# and running the installation script.
+function install_fonts() {
+    echo_msg "Installing Powerline fonts"
+    clone_repository "https://github.com/powerline/fonts.git" "fonts"
+    (cd fonts && ./install.sh)
+    rm -rf fonts
+}
 
-# Define the location for the backup files
-BACKUP_LOCATION="${HOME}/.dotfiles_backups"
+# This function configures zsh by cloning oh-my-zsh and installing
+# zsh-autosuggestions and zsh-syntax-highlighting plugins.
+function configure_zsh() {
+    echo_msg "Cloning oh-my-zsh"
+    clone_repository "https://github.com/robbyrussell/oh-my-zsh.git" "${HOME}/.oh-my-zsh"
 
-# Define the filename from the URL
-FILENAME=$(basename "${FILE_URL}")
+    echo_msg "Installing zsh-autosuggestions plugin..."
+    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
+    echo_msg "zsh-autosuggestions installation complete."
 
-# Create the backup location if it doesn't exist
-create_backup_location
+    echo_msg "Installing zsh-syntax-highlighting plugin..."
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
+    echo_msg "zsh-syntax-highlighting installation complete."
+}
 
-# If the file to be downloaded already exists at the destination, backup the existing file
-backup_existing_file
+# This function sets up a Python virtual environment and activates it.
+# It then tries to download a requirements.txt file from a specified URL,
+# and if successful, installs the Python packages listed in the file.
+function configure_python() {
+    echo_msg "Setting up Python virtual environment..."
+    python3 -m virtualenv "${HOME}/venv"
+    echo_msg "Python virtual environment set up at: ${HOME}/venv"
 
-# Download the file
-download_file
+    echo_msg "Activating Python virtual environment..."
+    source "${HOME}/venv/bin/activate"
+    echo_msg "Python virtual environment activated"
+
+    # URL of the requirements.txt file on GitHub
+    requirements_url="https://raw.githubusercontent.com/jonmatum/dotfiles/main/python/requirements.txt"
+
+    # Temporary file to hold the downloaded requirements.txt
+    requirements_file="$(mktemp)"
+
+    # Try to download the requirements.txt file
+    if curl -fsSL "$requirements_url" -o "$requirements_file"; then
+        # If download succeeds, install Python packages from requirements.txt
+        echo_msg "Installing Python packages from requirements.txt..."
+        pip install -r "$requirements_file"
+        echo_msg "Python packages installed successfully!"
+        # Cleanup: remove the temporary requirements.txt file
+        rm "$requirements_file"
+    else
+        # If download fails, print error and exit
+        echo_err "No requirements.txt file found at ${requirements_url}. Please check the URL and re-run the script."
+        exit 1
+    fi
+}
+
+# This function checks if the user's shell is zsh, and if not, tries to change it to zsh.
+function configure_shell() {
+    # Change user shell to zsh if it's not already set
+    if [[ "${SHELL}" != *"zsh"* ]]; then
+        if command -v zsh >/dev/null 2>&1; then
+            echo_msg "Changing user shell to zsh"
+            chsh -s "$(command -v zsh)" || true
+            echo_msg "User shell changed to zsh"
+        else
+            echo_err "Zsh is not installed. Please install zsh and re-run the script."
+            exit 1
+        fi
+    fi
+}
+
+configure_file "https://raw.githubusercontent.com/jonmatum/dotfiles/main/zsh/.zshrc" "${HOME}" "${HOME}/.dotfiles_backups"
+install_fonts
+configure_zsh
+configure_python
+configure_shell
