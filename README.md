@@ -5,12 +5,12 @@ This repository contains my custom dotfiles for configuring my development envir
 ![Terminal Screenshot](https://github.com/jonmatum/dotfiles/blob/0931840be160caf763ffc6cb3a406d4f67d81521/screenshot.jpg?raw=true)
 
 ## Table of Contents
-- [Terminal Theme Color](#terminal-theme-color)
+- [Terminal Theme Color](#github-dark-theme-for-vscode-terminal)
 - [GitHub Dark Dimmed Theme for VSCode Terminal](#github-dark-dimmed-theme-for-vscode-terminal)
 - [iTerm2 Configuration](#iterm2-configuration)
 - [Useful Links](#useful-links)
 
-## Terminal Theme Color
+## GitHub Dark Theme for VSCode Terminal
 
 To customize the colors of your terminal, you can modify the `workbench.colorCustomizations` setting in Visual Studio Code. Follow these steps:
 
