@@ -15,11 +15,13 @@ Welcome to my dotfiles repository - a testament to my journey in customizing and
 Follow these steps to clone and install this repository:
 
 1. Clone the dotfiles repository to your local machine:
+
    ```
    git clone https://github.com/jonmatum/dotfiles.git
    ```
 
 2. Navigate to the cloned repository directory:
+
    ```
    cd dotfiles
    ```
@@ -29,6 +31,7 @@ Follow these steps to clone and install this repository:
 
 4. Run the Installation Script:
    The repository includes an installation script that automates the setup process. Run the script to apply the configurations and settings to your system:
+
    ```
    bash install.sh
    ```
@@ -41,6 +44,12 @@ Follow these steps to clone and install this repository:
 
 7. Enjoy your personalized workspace:
    Explore your development environment set up according to the customized dotfiles.
+
+> **Quick Install:** You can also install the dotfiles using a single command that fetches the install script directly from the repository. However, be aware that this will bypass user confirmations and install all scripts listed in the `execute_script` function by default. If you're comfortable with this, run:
+
+```
+curl https://raw.githubusercontent.com/jonmatum/dotfiles/main/install.sh | bash
+```
 
 > Note: The installation script downloads and executes additional scripts from the internet. Ensure to trust the sources before proceeding.
 
