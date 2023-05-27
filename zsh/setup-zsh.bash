@@ -112,6 +112,22 @@ function download_file() {
     fi
 }
 
+# This function clones a Git repository from a specified URL to a specified location.
+# Args:
+#   $1: The URL of the Git repository to clone.
+#   $2: The location where the repository should be cloned to.
+function clone_repository() {
+    REPO_URL=$1
+    DESTINATION=$2
+
+    if git clone "$REPO_URL" "$DESTINATION"; then
+        echo_msg "Successfully cloned repository from $REPO_URL to $DESTINATION"
+    else
+        echo_err "Failed to clone repository from $REPO_URL"
+        exit 1
+    fi
+}
+
 # This function downloads a file from a specified URL and backs it up.
 # Args:
 #   $1: The URL of the file to download.
