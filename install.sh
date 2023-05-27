@@ -5,7 +5,7 @@
 
 # Just Another Dotfiles Repository - Installation Script
 
-## set -euo pipefail
+set -euo pipefail
 
 # Function to print informational messages in cyan color and redirect to log
 function echo_msg() {
