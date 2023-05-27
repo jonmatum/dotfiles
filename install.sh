@@ -5,7 +5,7 @@
 
 # Just Another Dotfiles Repository - Installation Script
 
-set -euo pipefail
+## set -euo pipefail
 
 # Function to print informational messages in cyan color and redirect to log
 function echo_msg() {
@@ -60,7 +60,7 @@ function execute_script() {
 }
 
 # Execute additional scripts
-execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/setup/shell.bash" || true
+execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/setup/shell.bash"
 execute_script "https://raw.githubusercontent.com/jonmatum/dotfiles/main/aws/install-aws-cli.sh"
 
 # Print completion message
