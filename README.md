@@ -59,7 +59,7 @@ The installation script includes the following additional scripts by default:
 
 - [setup-zsh.bash](https://raw.githubusercontent.com/jonmatum/dotfiles/main/zsh/setup-zsh.bash): Sets up Zsh shell configuration.
 - [setup-tmux.bash](https://raw.githubusercontent.com/jonmatum/dotfiles/main/tmux/setup-tmux.bash): Sets up Tmux terminal multiplexer.
-- [install-aws-cli.sh](https://raw.githubusercontent.com/jonmatum/dotfiles/main/aws/install-aws-cli.sh): Installs AWS CLI.
+- [setup-aws-cli.sh](https://raw.githubusercontent.com/jonmatum/dotfiles/main/aws/setup-aws-cli.sh): Sets up AWS CLI.
 
 These can be customized via the `execute_script` function in the main installation script.
 
