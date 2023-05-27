@@ -208,17 +208,38 @@ function configure_python() {
 
 # This function checks if the user's shell is zsh, and if not, tries to change it to zsh.
 function configure_shell() {
-    # Change user shell to zsh if it's not already set
-    if [[ "${SHELL}" != *"zsh"* ]]; then
-        if command -v zsh >/dev/null 2>&1; then
-            echo_msg "Changing user shell to zsh"
-            chsh -s "$(command -v zsh)" || true
-            echo_msg "User shell changed to zsh"
-        else
-            echo_err "Zsh is not installed. Please install zsh and re-run the script."
-            exit 1
-        fi
+    # Check if user shell is already zsh
+    if [[ "${SHELL}" == *"zsh"* ]]; then
+        echo_msg "User shell is already zsh"
+        return
     fi
+
+    # Check if zsh is installed
+    if ! command -v zsh >/dev/null 2>&1; then
+        echo_err "Zsh is not installed. Please install zsh and re-run the script."
+        exit 1
+    fi
+
+    # Check if the script is executed with sudo privileges
+    if ! sudo -v >/dev/null 2>&1; then
+        echo_msg "User does not have sudo privileges. Skipping changing of user shell."
+        return
+    fi
+
+    # Check if the script is being run in a pipe
+    if [ -p /dev/stdin ]; then
+        echo_msg "Script is being run in a pipe (like curl|bash). Skipping changing of user shell."
+        return
+    fi
+
+    # Change user shell to zsh
+    echo_msg "Changing user shell to zsh"
+    if ! sudo chsh -s "$(command -v zsh)" "${USER}"; then
+        echo_err "Failed to change user shell to zsh. Please try again manually."
+        exit 1
+    fi
+
+    echo_msg "User shell changed to zsh"
 }
 
 # Function to download and install a zsh theme from a GitHub repository
