@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Execution log file path
+LOG_FILE="/tmp/aws-cli-install-$(date +%s).log"
+
 # Function to print informational messages in cyan color
 echo_msg() {
   local cyan='\033[0;36m'
@@ -26,16 +29,16 @@ is_aws_cli_installed() {
 # Function to update SSL certificates
 update_ssl_certificates() {
     echo_msg "Updating SSL certificates..."
-    sudo update-ca-certificates --fresh
+    sudo update-ca-certificates --fresh >> "$LOG_FILE" 2>&1
     echo_msg "SSL certificates updated successfully!"
 }
 
 # Function to install AWS CLI
 install_aws_cli() {
     echo_msg "Installing AWS CLI..."
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-    unzip awscliv2.zip
-    sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" >> "$LOG_FILE" 2>&1
+    unzip awscliv2.zip >> "$LOG_FILE" 2>&1
+    sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli >> "$LOG_FILE" 2>&1
     rm -rf awscliv2.zip aws
     echo_msg "AWS CLI installed successfully!"
 }
@@ -43,13 +46,16 @@ install_aws_cli() {
 # Function to update AWS CLI
 update_aws_cli() {
     echo_msg "Updating AWS CLI..."
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-    unzip awscliv2.zip
-    sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" >> "$LOG_FILE" 2>&1
+    unzip awscliv2.zip >> "$LOG_FILE" 2>&1
+    sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update >> "$LOG_FILE" 2>&1
     rm -rf awscliv2.zip aws
     latest_version=$(aws --version | awk '{print $1}' | cut -d '/' -f2)
     echo_msg "AWS CLI updated successfully to version $latest_version!"
 }
+
+# Redirect all messages to the execution log file
+exec > >(tee -a "$LOG_FILE") 2>&1
 
 # Main script
 if is_aws_cli_installed; then
@@ -68,3 +74,5 @@ else
     install_aws_cli
 fi
 
+# Print the location of the installation log file
+echo_msg "Installation log: $LOG_FILE"
