@@ -113,12 +113,20 @@ function download_file() {
 }
 
 # This function clones a Git repository from a specified URL to a specified location.
+# If the destination already exists, it is moved to a backup location before the clone operation.
 # Args:
 #   $1: The URL of the Git repository to clone.
 #   $2: The location where the repository should be cloned to.
 function clone_repository() {
     REPO_URL=$1
     DESTINATION=$2
+    BACKUP_DESTINATION="${DESTINATION}_backup_$(date +%Y%m%d%H%M%S)"
+
+    # If the destination directory exists, back it up
+    if [ -d "$DESTINATION" ]; then
+        echo_msg "Destination $DESTINATION already exists, moving to backup location $BACKUP_DESTINATION"
+        mv "$DESTINATION" "$BACKUP_DESTINATION"
+    fi
 
     if git clone "$REPO_URL" "$DESTINATION"; then
         echo_msg "Successfully cloned repository from $REPO_URL to $DESTINATION"
