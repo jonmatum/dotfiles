@@ -79,6 +79,46 @@ function main() {
   echo "Installing zsh-syntax-highlighting plugin..."
   git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
   echo "zsh-syntax-highlighting installation complete."
+  
+  # Install Python3 if it's not already installed
+  if ! command -v python3 &>/dev/null; then
+    echo_msg "Python3 is not installed. Installing Python3..."
+    sudo apt-get update
+    sudo apt-get install -y python3
+  fi
+
+  # Install pip3 if it's not already installed
+  if ! command -v pip3 &>/dev/null; then
+    echo_msg "pip3 is not installed. Installing pip3..."
+    sudo apt-get install -y python3-pip
+  fi
+
+  # Install virtualenv if it's not already installed
+  if ! command -v virtualenv &>/dev/null; then
+    echo_msg "virtualenv is not installed. Installing virtualenv..."
+    pip3 install virtualenv
+  fi
+
+  # Set up Python virtual environment
+  echo_msg "Setting up Python virtual environment..."
+  python3 -m virtualenv "${HOME}/.venv"
+  echo_msg "Python virtual environment set up at: ${HOME}/.venv"
+
+  # Activate the virtual environment
+  echo_msg "Activating Python virtual environment..."
+  source "${HOME}/.venv/bin/activate"
+  echo_msg "Python virtual environment activated"
+
+  # Check if requirements.txt exists in the dotfiles_dir
+  if [[ -f "${dotfiles_dir}/python/requirements.txt" ]]; then
+    # Install Python packages from requirements.txt
+    echo_msg "Installing Python packages from requirements.txt..."
+    pip install -r "${dotfiles_dir}/python/requirements.txt"
+    echo_msg "Python packages installed successfully!"
+  else
+    echo_err "No requirements.txt file found in ${dotfiles_dir}. Please add the file and re-run the script."
+    exit 1
+  fi
 
   # Link dotfiles
   echo_msg "Linking dotfiles"
