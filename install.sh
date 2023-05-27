@@ -16,16 +16,21 @@ function echo_msg() {
 
 # Function to confirm user's choice
 function confirm() {
-    local response
-    read -r -p "$1 [y/N]: " response
-    case "$response" in
-    [yY][eE][sS] | [yY])
+    if [[ -t 0 ]]; then
+        local response
+        read -r -p "$1 [y/N]: " response
+        case "$response" in
+        [yY][eE][sS] | [yY])
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+        esac
+    else
+        # Non-interactive mode, return true by default
         return 0
-        ;;
-    *)
-        return 1
-        ;;
-    esac
+    fi
 }
 
 # Function to download and execute scripts
