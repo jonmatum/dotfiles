@@ -56,7 +56,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
 # Activate Python virtual environment
-test -d "$HOME/env" && source "$HOME/env/bin/activate"
+test -d "$HOME/venv" && source "$HOME/venv/bin/activate"
 
 # Node Version Manager (NVM)
 export NVM_DIR="$HOME/.nvm"
