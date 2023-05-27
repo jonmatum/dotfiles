@@ -20,8 +20,8 @@ function execute_script() {
     local script_name=${script_url##*/}
 
     # Download and execute the script
-    echo_msg "Downloading $script_name..."
-    curl -sSL -o "$script_path" "$script_url" | bash
+    echo_msg "Downloading and executing:  $script_name..."
+    curl "$script_url" | bash
 
 }
 
