@@ -4,6 +4,8 @@ This repository contains my custom dotfiles for configuring my development envir
 
 ![Terminal Screenshot](https://github.com/jonmatum/dotfiles/blob/0931840be160caf763ffc6cb3a406d4f67d81521/screenshot.jpg?raw=true)
 
+![image](https://github.com/jonmatum/dotfiles/assets/4975788/e06138aa-ceef-4250-b718-a8bca1485a88)
+
 ## Table of Contents
 
 - [Terminal Theme Color](#github-dark-theme-for-vscode-terminal)
