@@ -249,6 +249,10 @@ function install_zsh_theme() {
     local THEMES_DIR="${HOME}/.oh-my-zsh/themes/"
     local TARGET="${THEMES_DIR}/${THEME_NAME}"
 
+
+    # Install theme
+    echo_msg "Installing zsh theme..."
+
     # Check if oh-my-zsh themes directory exists
     if [ ! -d "${THEMES_DIR}" ]; then
         echo_err "oh-my-zsh themes directory does not exist. Please check your oh-my-zsh installation."
@@ -270,9 +274,6 @@ function install_zsh_theme() {
         echo_msg "Successfully downloaded zsh theme to ${TARGET}"
     fi
 
-    # Install theme
-    echo_msg "Installing zsh theme..."
-    ln -sf "${TARGET}" "${THEMES_DIR}"
     echo_msg "Zsh theme installed"
 }
 
