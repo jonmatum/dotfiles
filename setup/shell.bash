@@ -6,7 +6,7 @@
 set -euo pipefail
 
 # Define log file path
-log_file="/tmp/dotfiles-installation-$(date +%s).log"
+log_file="/tmp/shell-installation-$(date +%s).log"
 
 # Function to print informational messages in cyan color and redirect to log
 function echo_msg() {
@@ -151,8 +151,10 @@ function main() {
   if [[ ! -d "${local_helpers_dir}" ]]; then
     mkdir -p "${local_helpers_dir}"
     for dir in scripts aliases git miscellaneous; do
-      cp -r "${helpers_dir}/${dir}" "${local_helpers_dir}"
-      echo_msg "Copied helper directory: ${dir}"
+      if [[ -d "${helpers_dir}/${dir}" ]]; then
+        cp -r "${helpers_dir}/${dir}" "${local_helpers_dir}"
+        echo_msg "Copied helper directory: ${dir}"
+      fi
     done
   fi
 
