@@ -62,3 +62,8 @@ test -d "$HOME/env" && source "$HOME/env/bin/activate"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# TMP fix here.... Sorry :P
+export PIP_CERT=${HOME}/ZscalerRootCertificate-2048-SHA256.crt
+export AWS_CA_BUNDLE=${HOME}/ZscalerRootCertificate-2048-SHA256.crt
+export NODE_EXTRA_CA_CERTS=${HOME}/ZscalerRootCertificate-2048-SHA256.crt
