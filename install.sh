@@ -29,7 +29,7 @@ function execute_script() {
 
     # Execute the script
     echo_msg "Running $script_name..."
-    "$script_path"
+    "$script_path" >/dev/null
 
     # Remove the script
     rm "$script_path"
