@@ -116,10 +116,11 @@ function download_file() {
 # Args:
 #   $1: The URL of the Git repository to clone.
 #   $2: The location where the repository should be cloned to.
+#   $3: Optional if backup is requiered.
 function clone_repository() {
     REPO_URL=$1
     DESTINATION=$2
-    BACKUP_LOCATION=${3:-No}
+    BACKUP_LOCATION=${3:-optional-arg}
 
     if [[ -d "${BACKUP_LOCATION}" ]]; then
         mv "${DESTINATION}" "$(date +%s)_${BACKUP_LOCATION}"
