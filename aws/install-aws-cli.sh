@@ -11,7 +11,7 @@ is_aws_cli_installed() {
 
 # Function to get the latest version of AWS CLI
 get_latest_aws_cli_version() {
-    awscli_latest_version=$(curl -sL "https://github.com/aws/aws-cli/releases/latest" | grep -oP '(?<=tag\/v)\d+\.\d+\.\d+' | head -1)
+    awscli_latest_version=$(curl -sL "https://github.com/aws/aws-cli/releases/latest" | grep -oE "v[0-9]+\.[0-9]+\.[0-9]+" | head -1 | cut -c 2-)
     echo "$awscli_latest_version"
 }
 
@@ -31,12 +31,11 @@ if is_aws_cli_installed; then
     latest_version=$(get_latest_aws_cli_version)
     echo "AWS CLI is already installed (current version: $current_version)."
 
-    if [ "$current_version" != "$latest_version" ]; then
+    if [ -n "$latest_version" ] && [ "$current_version" != "$latest_version" ]; then
         echo "A newer version of AWS CLI is available ($latest_version)."
         read -p "Do you want to update AWS CLI? (y/n): " update_choice
 
         if [ "$update_choice" == "y" ]; then
-            echo "Updating AWS CLI to the latest version ($latest_version)..."
             install_aws_cli
             echo "AWS CLI updated successfully to version $latest_version."
         else
