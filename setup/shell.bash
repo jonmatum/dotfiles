@@ -69,6 +69,16 @@ function main() {
   echo_msg "Installing zsh theme"
   ln -sf "${dotfiles_dir}/zsh/me.zsh-theme" "${HOME}/.oh-my-zsh/themes/"
   echo_msg "Zsh theme installed"
+  
+  # Install zsh-autosuggestions plugin
+  echo "Installing zsh-autosuggestions plugin..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
+  echo "zsh-autosuggestions installation complete."
+
+  # Install zsh-syntax-highlighting plugin
+  echo "Installing zsh-syntax-highlighting plugin..."
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
+  echo "zsh-syntax-highlighting installation complete."
 
   # Link dotfiles
   echo_msg "Linking dotfiles"
