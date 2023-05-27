@@ -119,7 +119,7 @@ function download_file() {
 function clone_repository() {
     REPO_URL=$1
     DESTINATION=$2
-    BACKUP_LOCATION=$3
+    BACKUP_LOCATION=${3:-}
 
     if [[ -d "${BACKUP_LOCATION}" ]]; then
         mv "${DESTINATION}" "$(date +%s)_${BACKUP_LOCATION}"
