@@ -234,6 +234,12 @@ function install_zsh_theme() {
         exit 1
     fi
 
+    # Remove existing theme file if it exists
+    if [ -f "${TARGET}" ]; then
+        echo_msg "Theme file ${TARGET} already exists, removing it..."
+        rm "${TARGET}"
+    fi
+
     # Download theme file
     echo_msg "Downloading zsh theme from ${THEME_URL}..."
     if ! curl -L "${THEME_URL}" -o "${TARGET}"; then
