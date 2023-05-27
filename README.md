@@ -1,4 +1,4 @@
-# Dotfiles Repository 2023
+# Dotfiles Repository (2023 Update)
 
 This repository contains my custom dotfiles for configuring my development environment on macOS, Linux, and Windows Subsystem for Linux (WSL). These dotfiles include various configurations and settings that help me reproduce my preferred setup quickly and easily.
 
