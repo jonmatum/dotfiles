@@ -36,7 +36,7 @@ update_ssl_certificates() {
 # Function to install AWS CLI
 install_aws_cli() {
     echo_msg "Installing AWS CLI..."
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" >>"$LOG_FILE" 2>&1
+    curl -k "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" >>"$LOG_FILE" 2>&1
     unzip awscliv2.zip >>"$LOG_FILE" 2>&1
     sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli >>"$LOG_FILE" 2>&1
     rm -rf awscliv2.zip aws
@@ -46,7 +46,7 @@ install_aws_cli() {
 # Function to update AWS CLI
 update_aws_cli() {
     echo_msg "Updating AWS CLI..."
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" >>"$LOG_FILE" 2>&1
+    curl -k "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" >>"$LOG_FILE" 2>&1
     unzip awscliv2.zip >>"$LOG_FILE" 2>&1
     sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update >>"$LOG_FILE" 2>&1
     rm -rf awscliv2.zip aws
