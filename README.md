@@ -1,6 +1,13 @@
-# Just Another Dotfiles Repository (2023 Edition)
+# `@jonmatum/dotfiles`
 
-Welcome to my dotfiles repository - a testament to my journey in customizing and optimizing development environments across macOS, GNU/Linux, and Windows ecosystems. This repository is an aggregation of carefully crafted settings and configurations to streamline the task of recreating my ideal workspace.
+### Just Another Dotfiles Repository (2023 Edition)
+
+![version](https://img.shields.io/badge/version-2023-blue)
+![license](https://img.shields.io/badge/license-MIT-green)
+
+## Overview
+
+Embark upon my dotfiles repository, a testament to my journey in customizing and optimizing development environments across macOS, GNU/Linux, and Windows ecosystems. Within these digital realms, discover an assembly of meticulously crafted settings and configurations designed to streamline the recreation of my ideal workspace.
 
 ![image](https://github.com/jonmatum/dotfiles/assets/4975788/e06138aa-ceef-4250-b718-a8bca1485a88)
 
@@ -63,8 +70,12 @@ The installation script includes the following additional scripts by default:
 
 These can be customized via the `execute_script` function in the main installation script.
 
-## Contribute
+## License
 
-If you have any improvements or suggestions, feel free to open an issue or submit a pull request in the [dotfiles repository](https://github.com/jonmatum/dotfiles).
+MIT License.
 
-Happy Hacking and Pura Vida!
+---
+
+Open to contributions and suggestions! Report issues or propose enhancements.
+
+**Crafted with ❤️ by Jonatan Mata**.
