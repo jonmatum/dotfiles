@@ -1,6 +1,6 @@
 # `@jonmatum/dotfiles`
 
-### Just Another Dotfiles Repository (2023 Edition)
+### Just Another Dotfiles Repository
 
 ![version](https://img.shields.io/badge/version-2023-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
