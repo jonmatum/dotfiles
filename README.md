@@ -1,11 +1,8 @@
 # Dotfiles (2025 Edition)
 
-[![Platform - macOS/Linux/WSL](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20WSL-informational)]()
-[![Shell - Zsh](https://img.shields.io/badge/shell-zsh-89e051?style=flat&logo=gnu-bash&logoColor=white)](https://www.zsh.org/)
-[![Built with Neovim](https://img.shields.io/badge/editor-neovim-57A143?style=flat&logo=neovim&logoColor=white)](https://neovim.io)
-[![Plugin Manager - lazy.nvim](https://img.shields.io/badge/plugin%20manager-lazy.nvim-yellow?style=flat)](https://github.com/folke/lazy.nvim)
+[![GitHub release](https://img.shields.io/github/v/release/jonmatum/dotfiles)](https://github.com/jonmatum/dotfiles/releases)
 [![Build - Makefile](https://img.shields.io/badge/build-makefile-ff69b4)]()
-[![Commits - Signed](https://img.shields.io/badge/commits-signed-blueviolet?style=flat)](https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work)
+[![Platform - macOS/Linux/WSL](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20WSL-informational)]()
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 This is a clean, modular, and machine-aware dotfiles setup designed for modern developer workflows in 2025. It integrates shell, Git, Neovim, terminal, and theme configurations with a focus on productivity, consistency, and portability.
