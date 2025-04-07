@@ -3,7 +3,6 @@
   "packages": {
     ".": {
       "package-name": "dotfiles",
-      "versioning": "semver",
       "initial-version": "2025.0.0"
     }
   }
